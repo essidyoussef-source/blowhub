@@ -79,11 +79,17 @@ npm run preview  # prévisualise le build
 
 > 💡 L'app est pré-remplie avec du contenu réel (carrousels, citations, anecdotes…). Tes modifications sont **sauvegardées dans ton navigateur** (localStorage). Le bouton « Réinitialiser la démo » recharge les données d'origine.
 
-## ☁️ Déployer
+## ☁️ Déployer sur Vercel
 
-Blow Hub est une SPA statique : elle se déploie en 1 clic sur **Vercel**, **Netlify** ou **GitHub Pages**.
+Le repo est **prêt pour Vercel** (`vercel.json` inclus : framework Vite, build `npm run build`, sortie `dist`, et réécriture SPA pour que les routes profondes comme `/ideas` fonctionnent au rafraîchissement).
 
-- **Vercel / Netlify** : connecte le repo, commande de build `npm run build`, dossier de sortie `dist`.
+1. Va sur [vercel.com/new](https://vercel.com/new) → **Import** le repo `blowhub`.
+2. Vercel détecte tout automatiquement grâce à `vercel.json` — clique **Deploy**.
+3. À chaque `git push` sur la branche, Vercel redéploie tout seul. ✅
+
+> Rien à configurer côté variables d'environnement : la clé API IA et la synchro cloud se renseignent **dans l'app** (Réglages), côté navigateur.
+
+Le projet reste une SPA statique : il marche aussi sur **Netlify** ou **GitHub Pages** (build `npm run build`, dossier `dist`).
 
 ---
 
