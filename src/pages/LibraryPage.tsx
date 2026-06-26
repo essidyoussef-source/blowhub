@@ -1,8 +1,9 @@
 import { useMemo, useState } from 'react'
-import { Library, Quote as QuoteIcon, Sparkle, Lightbulb, Type, Plus, ArrowUpRight, Trash2, Copy, Check } from 'lucide-react'
+import { Library, Quote as QuoteIcon, Sparkle, Lightbulb, Type, Plus, ArrowUpRight, Trash2, Copy, Check, Sparkles, Loader2 } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import { useStore } from '../store'
 import { PILLARS, pillarOf } from '../constants'
+import { generateIdeas, AiError } from '../lib/ai'
 
 type Tab = 'quotes' | 'anecdotes' | 'ideas' | 'captions'
 
@@ -23,6 +24,18 @@ export default function LibraryPage() {
   const [newIdea, setNewIdea] = useState('')
   const [newPillar, setNewPillar] = useState('Mindset')
   const [pillarFilter, setPillarFilter] = useState('')
+  const [aiBusy, setAiBusy] = useState(false)
+  const [aiErr, setAiErr] = useState<string | null>(null)
+
+  const genIdeas = async () => {
+    setAiErr(null); setAiBusy(true)
+    try {
+      const ideas = await generateIdeas(newPillar, 6)
+      ideas.reverse().forEach((i) => addRawIdea(i.title, newPillar))
+    } catch (e) {
+      setAiErr(e instanceof AiError ? e.message : 'Erreur lors de la génération.')
+    } finally { setAiBusy(false) }
+  }
 
   const TABS: { id: Tab; label: string; icon: any; count: number }[] = [
     { id: 'ideas', label: 'Idées brutes', icon: Lightbulb, count: rawIdeas.length },
@@ -74,7 +87,14 @@ export default function LibraryPage() {
               onClick={() => { if (newIdea.trim()) { addRawIdea(newIdea.trim(), newPillar); setNewIdea('') } }}>
               <Plus size={16} /> Ajouter
             </button>
+            <button
+              className="btn bg-gradient-to-r from-blow-500/20 to-violet-500/20 text-blow-300 border border-blow-500/30 hover:from-blow-500/30 hover:to-violet-500/30"
+              onClick={genIdeas} disabled={aiBusy} title={`Générer 6 idées « ${newPillar} » avec l'IA`}>
+              {aiBusy ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
+              {aiBusy ? 'Génération…' : 'Générer (IA)'}
+            </button>
           </div>
+          {aiErr && <p className="text-xs text-rose-400 -mt-2">{aiErr}</p>}
 
           <div className="flex items-center gap-1.5 flex-wrap">
             <button onClick={() => setPillarFilter('')} className={`chip ${!pillarFilter ? 'bg-white/10 text-white border-white/20' : 'border-white/10 text-slate-400'}`}>Tous</button>

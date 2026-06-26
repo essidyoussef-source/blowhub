@@ -110,6 +110,8 @@ interface BlowState {
   promoteRawIdea: (id: string) => string
 
   resetDemo: () => void
+  /** Remplace tout l'état (import / synchro cloud) */
+  replaceAll: (data: Partial<Pick<BlowState, 'contents' | 'quotes' | 'anecdotes' | 'rawIdeas' | 'captions'>>) => void
 }
 
 function freshState() {
@@ -189,6 +191,15 @@ export const useStore = create<BlowState>()(
       },
 
       resetDemo: () => set(freshState()),
+
+      replaceAll: (data) =>
+        set((s) => ({
+          contents: data.contents ?? s.contents,
+          quotes: data.quotes ?? s.quotes,
+          anecdotes: data.anecdotes ?? s.anecdotes,
+          rawIdeas: data.rawIdeas ?? s.rawIdeas,
+          captions: data.captions ?? s.captions,
+        })),
     }),
     { name: 'blowhub-store-v1' },
   ),

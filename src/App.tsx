@@ -1,7 +1,7 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
 import {
   LayoutDashboard, KanbanSquare, CalendarDays, GalleryHorizontalEnd,
-  Clapperboard, Library, Sparkles, Github, Tv,
+  Clapperboard, Library, Sparkles, Github, Tv, Settings as SettingsIcon,
 } from 'lucide-react'
 import Dashboard from './pages/Dashboard'
 import IdeasBoard from './pages/IdeasBoard'
@@ -10,6 +10,8 @@ import Carousels from './pages/Carousels'
 import Production from './pages/Production'
 import LibraryPage from './pages/LibraryPage'
 import SeriesPage from './pages/Series'
+import Settings from './pages/Settings'
+import CommandPalette from './components/CommandPalette'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -19,6 +21,7 @@ const NAV = [
   { to: '/series', label: 'Séries', icon: Tv },
   { to: '/production', label: 'Production', icon: Clapperboard },
   { to: '/library', label: 'Bibliothèque', icon: Library },
+  { to: '/settings', label: 'Réglages', icon: SettingsIcon },
 ]
 
 function Sidebar() {
@@ -67,8 +70,12 @@ function Sidebar() {
         >
           <Github size={18} /> Repo du projet
         </a>
-        <p className="px-3 pt-2 text-[10px] text-slate-600 leading-relaxed">
-          Tes données sont sauvegardées dans ton navigateur. v0.1
+        <div className="px-3 pt-2 flex items-center gap-1.5 text-[10px] text-slate-600">
+          <kbd className="border border-white/10 rounded px-1 py-0.5 text-slate-500">⌘K</kbd>
+          <span>recherche rapide</span>
+        </div>
+        <p className="px-3 pt-1.5 text-[10px] text-slate-600 leading-relaxed">
+          Données sauvegardées dans ton navigateur. v0.2
         </p>
       </div>
     </aside>
@@ -78,7 +85,7 @@ function Sidebar() {
 function MobileNav() {
   return (
     <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 flex justify-around border-t border-white/10 bg-ink-900/95 backdrop-blur-xl py-1.5">
-      {NAV.map(({ to, label, icon: Icon, end }) => (
+      {NAV.filter((n) => ['/', '/ideas', '/calendar', '/carousels', '/library'].includes(n.to)).map(({ to, label, icon: Icon, end }) => (
         <NavLink
           key={to}
           to={to}
@@ -108,9 +115,11 @@ export default function App() {
           <Route path="/series" element={<SeriesPage />} />
           <Route path="/production" element={<Production />} />
           <Route path="/library" element={<LibraryPage />} />
+          <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
       <MobileNav />
+      <CommandPalette />
     </div>
   )
 }

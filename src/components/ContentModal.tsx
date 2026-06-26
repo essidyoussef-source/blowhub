@@ -1,9 +1,11 @@
-import { useEffect } from 'react'
+import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
   X, Trash2, Copy, Plus, GripVertical, Calendar, Clapperboard, Scissors, Hash,
+  Sparkles, Loader2,
 } from 'lucide-react'
 import { useStore } from '../store'
+import { generateCarousel, AiError } from '../lib/ai'
 import {
   PILLARS, FORMATS, PLATFORMS, STATUSES, PRIORITIES, FRAMEWORKS, frameworkHint, pillarOf,
 } from '../constants'
@@ -15,6 +17,8 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
   const update = useStore((s) => s.updateContent)
   const remove = useStore((s) => s.deleteContent)
   const duplicate = useStore((s) => s.duplicateContent)
+  const [aiBusy, setAiBusy] = useState(false)
+  const [aiErr, setAiErr] = useState<string | null>(null)
 
   useEffect(() => {
     const onKey = (e: KeyboardEvent) => e.key === 'Escape' && onClose()
@@ -34,6 +38,27 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
     set({ slides: [...content.slides, { n: content.slides.length + 1, title: '', text: '' }] })
   const removeSlide = (i: number) =>
     set({ slides: content.slides.filter((_, idx) => idx !== i).map((s, idx) => ({ ...s, n: idx + 1 })) })
+
+  const generate = async () => {
+    setAiErr(null); setAiBusy(true)
+    try {
+      const draft = await generateCarousel({
+        title: content.title, hook: content.hook, pillar: content.pillar,
+        framework: content.framework, description: content.description,
+      })
+      set({
+        slides: draft.slides.map((s, i) => ({ n: i + 1, title: s.title, text: s.text })),
+        cta: draft.cta || content.cta,
+        caption: draft.caption || content.caption,
+        hashtags: draft.hashtags || content.hashtags,
+        status: content.status === 'idee' ? 'scripte' : content.status,
+      })
+    } catch (e) {
+      setAiErr(e instanceof AiError ? e.message : 'Erreur lors de la génération.')
+    } finally {
+      setAiBusy(false)
+    }
+  }
 
   return createPortal(
     <div className="fixed inset-0 z-50 flex items-stretch md:items-center justify-center p-0 md:p-6">
@@ -126,8 +151,20 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
           <div>
             <div className="flex items-center justify-between mb-2">
               <span className="label !mb-0">Slides ({content.slides.length})</span>
-              <button className="btn-ghost !py-1 !px-2.5 text-xs" onClick={addSlide}><Plus size={14} /> Slide</button>
+              <div className="flex items-center gap-1.5">
+                <button
+                  className="btn !py-1 !px-2.5 text-xs bg-gradient-to-r from-blow-500/20 to-violet-500/20 text-blow-300 border border-blow-500/30 hover:from-blow-500/30 hover:to-violet-500/30"
+                  onClick={generate}
+                  disabled={aiBusy}
+                  title="Générer le carrousel avec l'IA"
+                >
+                  {aiBusy ? <Loader2 size={14} className="animate-spin" /> : <Sparkles size={14} />}
+                  {aiBusy ? 'Génération…' : 'Générer (IA)'}
+                </button>
+                <button className="btn-ghost !py-1 !px-2.5 text-xs" onClick={addSlide}><Plus size={14} /> Slide</button>
+              </div>
             </div>
+            {aiErr && <p className="text-xs text-rose-400 mb-2">{aiErr}</p>}
             <div className="space-y-2">
               {content.slides.map((s, i) => (
                 <div key={i} className="flex gap-2 items-start rounded-xl bg-ink-850 border border-white/5 p-2.5">

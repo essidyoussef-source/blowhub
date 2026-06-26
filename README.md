@@ -40,6 +40,25 @@ Grâce à ces étiquettes, tu vois la même idée sous tous les angles : **par t
 - **📺 Séries** — tes formats récurrents (ex: *The Bossy Lady Diaries*), avec **numérotation automatique** des épisodes (#01, #02…).
 - **🎬 Production** — organise tes journées de **tournage** et tes sessions de **montage**.
 - **📚 Bibliothèque** — ta réserve de munitions : idées brutes, punchlines & citations, anecdotes, captions prêtes. Promotion d'une idée brute vers le pipeline en un clic.
+- **⚙️ Réglages** — clé API IA, synchro cloud, sauvegardes.
+
+## 🤖 Génération par IA (Claude)
+
+Avec ta clé API Anthropic (Réglages), Blow Hub génère pour toi :
+
+- **un carrousel complet** slide par slide depuis une idée (bouton ✨ dans l'éditeur) — avec CTA, caption et hashtags ;
+- **des idées de contenu** pour un pilier donné (bouton ✨ dans la Bibliothèque).
+
+Modèle : `claude-opus-4-8`. La clé reste dans ton navigateur (BYO key) et n'est envoyée qu'à l'API Claude.
+
+## ☁️ Cloud & sauvegardes
+
+- **Export / Import JSON** — sauvegarde et portabilité de tout ton contenu, sans dépendance.
+- **Synchro Supabase (optionnelle)** — connecte ton propre projet pour synchroniser entre appareils (connexion par lien magique). Crée la table avec `supabase/schema.sql`, puis renseigne URL + clé anon dans Réglages.
+
+## ⌨️ Raccourcis
+
+- **⌘K / Ctrl+K** — recherche rapide (contenus + pages).
 
 ---
 

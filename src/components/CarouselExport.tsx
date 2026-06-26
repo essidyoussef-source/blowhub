@@ -4,6 +4,7 @@ import { toPng } from 'html-to-image'
 import { X, Download, Loader2, ImageDown } from 'lucide-react'
 import type { Content } from '../types'
 import { pillarOf } from '../constants'
+import { useSettings } from '../lib/settings'
 
 // Slide 1080×1080 prête à poster — rendue hors écran puis capturée.
 function ExportSlide({
@@ -62,7 +63,7 @@ function ExportSlide({
 export default function CarouselExport({ content, onClose }: { content: Content; onClose: () => void }) {
   const refs = useRef<(HTMLDivElement | null)[]>([])
   const [busy, setBusy] = useState<number | 'all' | null>(null)
-  const [handle, setHandle] = useState('@morganelgnn')
+  const [handle, setHandle] = useState(useSettings.getState().handle || '@morganelgnn')
   const p = pillarOf(content.pillar)
 
   const slug = content.title.toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'carrousel'
