@@ -34,6 +34,8 @@ export interface Content {
   pillar: string
   framework?: string | null
   objective?: string | null
+  /** Nom de la série récurrente (ex: The Bossy Lady Diaries) */
+  series?: string | null
   status: StatusId
   priority: Priority
   platform: Platform

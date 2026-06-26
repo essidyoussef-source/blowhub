@@ -105,10 +105,16 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
             <p className="-mt-3 text-xs text-slate-500">💡 {frameworkHint[content.framework]}</p>
           )}
 
-          <Field label="Objectif">
-            <input className="input" value={content.objective ?? ''} placeholder="ex: Autorité, Émotion, Éducation, Viralité…"
-              onChange={(e) => set({ objective: e.target.value })} />
-          </Field>
+          <div className="grid md:grid-cols-2 gap-3">
+            <Field label="Objectif">
+              <input className="input" value={content.objective ?? ''} placeholder="ex: Autorité, Émotion, Viralité…"
+                onChange={(e) => set({ objective: e.target.value })} />
+            </Field>
+            <Field label="Série (optionnel)">
+              <input className="input" value={content.series ?? ''} placeholder="ex: The Bossy Lady Diaries"
+                onChange={(e) => set({ series: e.target.value || null })} />
+            </Field>
+          </div>
 
           <Field label="Description / angle">
             <textarea className="input min-h-[72px] resize-y" value={content.description ?? ''}

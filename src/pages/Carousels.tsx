@@ -1,7 +1,8 @@
 import { useMemo, useState } from 'react'
-import { GalleryHorizontalEnd, Plus, Pencil, Maximize2, ChevronLeft, ChevronRight, X } from 'lucide-react'
+import { GalleryHorizontalEnd, Plus, Pencil, Maximize2, ChevronLeft, ChevronRight, X, ImageDown } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ContentModal from '../components/ContentModal'
+import CarouselExport from '../components/CarouselExport'
 import { useStore } from '../store'
 import { PILLARS, pillarOf } from '../constants'
 import { PillarBadge, StatusBadge } from '../components/Badges'
@@ -46,7 +47,7 @@ function SlideSquare({
   )
 }
 
-function CarouselRow({ content, onEdit, onPresent }: { content: Content; onEdit: () => void; onPresent: () => void }) {
+function CarouselRow({ content, onEdit, onPresent, onExport }: { content: Content; onEdit: () => void; onPresent: () => void; onExport: () => void }) {
   const update = useStore((s) => s.updateContent)
   const p = pillarOf(content.pillar)
   const setSlide = (i: number, patch: Partial<Slide>) =>
@@ -70,7 +71,10 @@ function CarouselRow({ content, onEdit, onPresent }: { content: Content; onEdit:
         </div>
         <div className="flex items-center gap-1.5 shrink-0">
           {content.slides.length > 0 && (
-            <button className="btn-ghost !py-1.5 !px-2.5 text-xs" onClick={onPresent}><Maximize2 size={14} /> Présenter</button>
+            <>
+              <button className="btn-ghost !py-1.5 !px-2.5 text-xs" onClick={onExport}><ImageDown size={14} /> Exporter</button>
+              <button className="btn-ghost !py-1.5 !px-2.5 text-xs" onClick={onPresent}><Maximize2 size={14} /> Présenter</button>
+            </>
           )}
           <button className="btn-ghost !py-1.5 !px-2.5 text-xs" onClick={onEdit}><Pencil size={14} /> Éditer</button>
         </div>
@@ -134,6 +138,7 @@ export default function Carousels() {
   const addContent = useStore((s) => s.addContent)
   const [editId, setEditId] = useState<string | null>(null)
   const [presentId, setPresentId] = useState<string | null>(null)
+  const [exportId, setExportId] = useState<string | null>(null)
   const [pillar, setPillar] = useState('')
 
   const carousels = useMemo(
@@ -142,6 +147,7 @@ export default function Carousels() {
     [contents, pillar],
   )
   const present = presentId ? contents.find((c) => c.id === presentId) : null
+  const exportContent = exportId ? contents.find((c) => c.id === exportId) : null
 
   return (
     <div className="px-5 md:px-8">
@@ -175,7 +181,7 @@ export default function Carousels() {
 
       <div className="space-y-5">
         {carousels.map((c) => (
-          <CarouselRow key={c.id} content={c} onEdit={() => setEditId(c.id)} onPresent={() => setPresentId(c.id)} />
+          <CarouselRow key={c.id} content={c} onEdit={() => setEditId(c.id)} onPresent={() => setPresentId(c.id)} onExport={() => setExportId(c.id)} />
         ))}
         {carousels.length === 0 && (
           <div className="card p-12 text-center text-slate-500">Aucun carrousel pour ce filtre.</div>
@@ -184,6 +190,7 @@ export default function Carousels() {
 
       {editId && <ContentModal id={editId} onClose={() => setEditId(null)} />}
       {present && <Presenter content={present} onClose={() => setPresentId(null)} />}
+      {exportContent && <CarouselExport content={exportContent} onClose={() => setExportId(null)} />}
     </div>
   )
 }

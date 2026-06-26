@@ -1,7 +1,7 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
 import {
   LayoutDashboard, KanbanSquare, CalendarDays, GalleryHorizontalEnd,
-  Clapperboard, Library, Sparkles, Github,
+  Clapperboard, Library, Sparkles, Github, Tv,
 } from 'lucide-react'
 import Dashboard from './pages/Dashboard'
 import IdeasBoard from './pages/IdeasBoard'
@@ -9,12 +9,14 @@ import CalendarPage from './pages/Calendar'
 import Carousels from './pages/Carousels'
 import Production from './pages/Production'
 import LibraryPage from './pages/LibraryPage'
+import SeriesPage from './pages/Series'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
   { to: '/ideas', label: 'Idées', icon: KanbanSquare },
   { to: '/calendar', label: 'Calendrier', icon: CalendarDays },
   { to: '/carousels', label: 'Carrousels', icon: GalleryHorizontalEnd },
+  { to: '/series', label: 'Séries', icon: Tv },
   { to: '/production', label: 'Production', icon: Clapperboard },
   { to: '/library', label: 'Bibliothèque', icon: Library },
 ]
@@ -103,6 +105,7 @@ export default function App() {
           <Route path="/ideas" element={<IdeasBoard />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/carousels" element={<Carousels />} />
+          <Route path="/series" element={<SeriesPage />} />
           <Route path="/production" element={<Production />} />
           <Route path="/library" element={<LibraryPage />} />
         </Routes>

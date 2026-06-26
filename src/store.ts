@@ -50,6 +50,7 @@ function normContents(): Content[] {
       pillar: c.pillar || 'Autre',
       framework: c.framework ?? null,
       objective: c.objective ?? null,
+      series: c.series ?? null,
       status,
       priority: PRIORITY_BY_STATUS[status] ?? 'moyenne',
       platform: c.platform || 'Instagram',
@@ -68,6 +69,11 @@ function normContents(): Content[] {
     } as Content
   })
   seedSchedule(list)
+  // Tag quelques contenus dans la série signature "The Bossy Lady Diaries"
+  const BOSSY = ['repris le contrôle', '6 mois', 'burn out', 'trouvé ma voie', 'cerveau te sabote', 'attendre']
+  list.forEach((c) => {
+    if (BOSSY.some((k) => c.title.toLowerCase().includes(k))) c.series = 'The Bossy Lady Diaries'
+  })
   return list
 }
 
@@ -133,6 +139,7 @@ export const useStore = create<BlowState>()(
           pillar: partial.pillar ?? 'Mindset',
           framework: partial.framework ?? null,
           objective: partial.objective ?? null,
+          series: partial.series ?? null,
           status: partial.status ?? 'idee',
           priority: partial.priority ?? 'moyenne',
           platform: partial.platform ?? 'Instagram',

@@ -35,8 +35,9 @@ Grâce à ces étiquettes, tu vois la même idée sous tous les angles : **par t
 
 - **📊 Dashboard** — vue d'ensemble : pipeline, répartition par pilier, priorités du moment.
 - **🗂️ Idées (Kanban)** — glisse tes contenus de colonne en colonne (idée → publié). Filtres par pilier, format, recherche.
-- **📅 Calendrier éditorial** — planning mensuel avec **code couleur par format / plateforme / pilier**. Clique un jour pour programmer.
-- **🖼️ Carrousels** — **chaque slide en carré, visible une par une sur une ligne**, comme dans le feed. Édition directe + mode présentation plein écran.
+- **📅 Calendrier éditorial** — planning mensuel avec **code couleur par format / plateforme / pilier**. **Glisse-dépose** un post pour le reprogrammer, ou clique un jour pour en créer un.
+- **🖼️ Carrousels** — **chaque slide en carré, visible une par une sur une ligne**, comme dans le feed. Édition directe, mode présentation plein écran, et **export en images PNG 1080×1080 prêtes à poster**.
+- **📺 Séries** — tes formats récurrents (ex: *The Bossy Lady Diaries*), avec **numérotation automatique** des épisodes (#01, #02…).
 - **🎬 Production** — organise tes journées de **tournage** et tes sessions de **montage**.
 - **📚 Bibliothèque** — ta réserve de munitions : idées brutes, punchlines & citations, anecdotes, captions prêtes. Promotion d'une idée brute vers le pipeline en un clic.
 
