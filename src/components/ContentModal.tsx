@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 import {
   X, Trash2, Copy, Plus, GripVertical, Calendar, Clapperboard, Scissors, Hash,
-  Sparkles, Loader2,
+  Sparkles, Loader2, Check,
 } from 'lucide-react'
 import { useStore } from '../store'
 import { generateCarousel, AiError } from '../lib/ai'
@@ -88,6 +88,13 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
             />
           </div>
           <div className="flex items-center gap-1">
+            <button
+              className={`btn !py-1.5 !px-3 text-xs mr-1 ${content.status === 'publie' ? 'bg-emerald-500 text-white shadow-soft' : 'btn-ghost hover:text-emerald-600'}`}
+              title={content.status === 'publie' ? 'Posté — cliquer pour rouvrir' : 'Marquer comme posté'}
+              onClick={() => set({ status: content.status === 'publie' ? 'programme' : 'publie' })}
+            >
+              <Check size={14} strokeWidth={3} /> {content.status === 'publie' ? 'Posté' : 'Marquer posté'}
+            </button>
             <button className="btn-icon" title="Dupliquer" onClick={() => { duplicate(id); onClose() }}><Copy size={16} /></button>
             <button
               className="btn-icon hover:text-rose-400"
