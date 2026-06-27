@@ -39,8 +39,18 @@ Grâce à ces étiquettes, tu vois la même idée sous tous les angles : **par t
 - **🖼️ Carrousels** — **chaque slide en carré, visible une par une sur une ligne**, comme dans le feed. Édition directe, mode présentation plein écran, et **export en images PNG 1080×1080 prêtes à poster**.
 - **📺 Séries** — tes formats récurrents (ex: *The Bossy Lady Diaries*), avec **numérotation automatique** des épisodes (#01, #02…).
 - **🎬 Production** — organise tes journées de **tournage** et tes sessions de **montage**.
+- **📌 Inspirations** — ta veille créative : colle des liens TikTok/Instagram/LinkedIn, ils s'affichent **avec leur aperçu** (cover). Filtrable par thématique.
 - **📚 Bibliothèque** — ta réserve de munitions : idées brutes, punchlines & citations, anecdotes, captions prêtes. Promotion d'une idée brute vers le pipeline en un clic.
 - **⚙️ Réglages** — clé API IA, synchro cloud, sauvegardes.
+
+### Espaces plateformes & thématiques
+
+- **Plateformes (Instagram, TikTok, YouTube, LinkedIn)** = des **espaces de travail** dans la sidebar. Chacun a son **mini-dashboard** (pipeline, prochaines publications, répartition par pilier) et ses sous-onglets : Idées · Inspirations · Thématiques. Le **Dashboard général** reste la vue cross-plateformes.
+- **Thématiques** = un **filtre transversal** que tu crées (couleur + nom), attribues à ton contenu, et retrouves partout. *Plateforme = lieu, thématique = filtre.*
+
+### PWA & partage
+
+Blow Hub est **installable** (PWA). Sur mobile, depuis Instagram/TikTok/LinkedIn : **Partager → Blow Hub** enregistre le lien directement dans tes Inspirations.
 
 ## 🤖 Génération par IA (Claude)
 
