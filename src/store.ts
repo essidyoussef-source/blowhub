@@ -65,6 +65,7 @@ function normContents(): Content[] {
       platform: c.platform || 'Instagram',
       description: c.description || '',
       slides: Array.isArray(c.slides) ? c.slides : [],
+      themes: Array.isArray(c.themes) ? c.themes : [],
       cta: c.cta || '',
       caption: c.caption || '',
       hashtags: c.hashtags || '',
