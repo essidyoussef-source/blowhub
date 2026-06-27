@@ -6,7 +6,7 @@ export default {
       colors: {
         // ── Surfaces (lavande clair, glassy) ───────────────────────────────
         ink: {
-          950: '#efebfb', // fond de page (lavande très doux)
+          950: '#fdf3ec', // fond de page (crème rosé-doré très doux)
           900: '#ffffff',
           850: '#ffffff',
           800: '#f5f1fd', // hover / inputs
