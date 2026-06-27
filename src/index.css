@@ -7,12 +7,13 @@ html, body, #root { height: 100%; }
 
 body {
   @apply bg-ink-950 text-slate-300 font-sans antialiased;
+  /* Aura "liquid glass" iOS 26 — nappes rose / magenta / lavande très diffuses */
   background-image:
-    radial-gradient(840px 620px at 4% -4%, rgba(248, 224, 150, 0.50), transparent 58%),
-    radial-gradient(820px 640px at 100% 2%, rgba(248, 178, 206, 0.48), transparent 58%),
-    radial-gradient(760px 600px at 92% 98%, rgba(250, 206, 168, 0.40), transparent 58%),
-    radial-gradient(760px 600px at 2% 100%, rgba(247, 170, 200, 0.40), transparent 58%),
-    radial-gradient(640px 540px at 52% 48%, rgba(251, 235, 175, 0.22), transparent 64%);
+    radial-gradient(900px 720px at 8% 2%, rgba(244, 158, 205, 0.58), transparent 60%),
+    radial-gradient(820px 680px at 96% 6%, rgba(201, 168, 244, 0.54), transparent 60%),
+    radial-gradient(1020px 780px at 28% 98%, rgba(243, 138, 196, 0.52), transparent 62%),
+    radial-gradient(820px 700px at 100% 100%, rgba(176, 156, 246, 0.48), transparent 60%),
+    radial-gradient(740px 640px at 58% 44%, rgba(250, 196, 224, 0.42), transparent 66%);
   background-attachment: fixed;
 }
 
@@ -23,9 +24,23 @@ body {
 *::-webkit-scrollbar-thumb:hover { background: #c7baea; background-clip: padding-box; }
 
 @layer components {
-  /* Carte en verre dépoli (neo-apple) */
+  /* Carte "liquid glass" iOS 26 — verre épais, reflet sur le bord supérieur */
   .card {
-    @apply bg-white/60 backdrop-blur-2xl border border-white/70 rounded-4xl shadow-glass;
+    @apply bg-white/45 backdrop-blur-2xl border border-white/60 rounded-4xl shadow-glass relative;
+    box-shadow:
+      0 18px 50px -18px rgba(120, 70, 150, 0.30),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -1px 0 rgba(255, 255, 255, 0.30);
+  }
+  /* Pastille en verre (toggles, segments, tags ronds) */
+  .pill {
+    @apply inline-flex items-center gap-1.5 rounded-full px-3.5 py-1.5 text-xs font-bold
+           bg-white/55 backdrop-blur-md border border-white/70 text-slate-200 shadow-soft transition-all;
+  }
+  /* Widget carré en verre dépoli */
+  .widget {
+    @apply rounded-[1.6rem] bg-white/45 backdrop-blur-2xl border border-white/60 p-4 relative overflow-hidden;
+    box-shadow: 0 14px 40px -18px rgba(120, 70, 150, 0.28), inset 0 1px 0 rgba(255,255,255,0.8);
   }
   .btn {
     @apply inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all

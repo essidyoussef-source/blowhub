@@ -48,7 +48,7 @@ function NavItem({ to, label, Icon, end }: { to: string; label: string; Icon: an
 function Sidebar() {
   return (
     <aside className="hidden md:flex w-[248px] shrink-0 flex-col border-r border-white/60"
-      style={{ background: 'radial-gradient(220px 260px at 18% 6%, rgba(248,224,150,0.55), transparent 64%), radial-gradient(220px 280px at 92% 20%, rgba(248,178,206,0.50), transparent 64%), radial-gradient(240px 300px at 25% 86%, rgba(250,206,168,0.42), transparent 64%), radial-gradient(220px 280px at 95% 98%, rgba(247,170,200,0.42), transparent 64%), linear-gradient(180deg,#fef7ee,#fdeef0)' }}>
+      style={{ background: 'radial-gradient(240px 300px at 16% 4%, rgba(244,158,205,0.62), transparent 64%), radial-gradient(220px 300px at 94% 16%, rgba(201,168,244,0.58), transparent 64%), radial-gradient(260px 320px at 22% 88%, rgba(243,138,196,0.50), transparent 64%), radial-gradient(240px 300px at 98% 98%, rgba(176,156,246,0.50), transparent 64%), linear-gradient(180deg,#fdeef6,#f6ecfb)' }}>
       <div className="flex items-center gap-3 px-5 h-[72px]">
         <div className="grid h-10 w-10 place-items-center rounded-2xl shadow-glow" style={{ backgroundImage: 'linear-gradient(135deg,#9d85f4,#6a54ee)' }}>
           <Sparkles size={20} className="text-white" />

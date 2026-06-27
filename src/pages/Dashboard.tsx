@@ -9,16 +9,21 @@ import ContentModal from '../components/ContentModal'
 import { useStore } from '../store'
 import { STATUSES, PILLARS, statusOf, pillarOf } from '../constants'
 
-function Stat({ icon, label, value, hex, ink }: { icon: React.ReactNode; label: string; value: number | string; hex: string; ink: string }) {
+// Orb glossy "liquid glass" — bulle dégradée avec reflet, façon iOS 26.
+function Stat({ icon, label, value, from, to }: { icon: React.ReactNode; label: string; value: number | string; from: string; to: string }) {
   return (
-    <div className="rounded-4xl p-4 flex items-center gap-3 shadow-soft border border-white/70 relative overflow-hidden"
-      style={{ background: `linear-gradient(140deg, ${hex}, ${hex}cc)` }}>
-      <div className="absolute -right-7 -top-9 h-24 w-24 rounded-full bg-white/40" />
-      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/70 shrink-0" style={{ color: ink }}>{icon}</div>
-      <div className="relative">
-        <div className="text-3xl font-display font-extrabold leading-none" style={{ color: ink }}>{value}</div>
-        <div className="text-xs mt-1 font-semibold" style={{ color: ink, opacity: 0.85 }}>{label}</div>
+    <div className="widget flex flex-col items-center text-center gap-3 py-5">
+      <div className="relative grid h-24 w-24 place-items-center rounded-full shrink-0"
+        style={{ backgroundImage: `radial-gradient(120% 120% at 30% 22%, ${from}, ${to})`, boxShadow: `0 16px 30px -10px ${to}aa, inset 0 2px 6px rgba(255,255,255,0.55)` }}>
+        {/* reflet vitré */}
+        <span className="absolute left-3 top-2.5 h-7 w-10 rounded-full bg-white/55 blur-[6px]" />
+        <span className="absolute inset-1.5 rounded-full border border-white/40" />
+        <div className="relative leading-none">
+          <div className="text-2xl font-display font-extrabold text-white drop-shadow-sm">{value}</div>
+          <div className="mt-1 grid place-items-center text-white/90">{icon}</div>
+        </div>
       </div>
+      <div className="text-xs font-bold text-slate-200">{label}</div>
     </div>
   )
 }
@@ -74,12 +79,12 @@ export default function Dashboard() {
         }
       />
 
-      {/* Stats — blocs couleur pleine (façon palette) */}
+      {/* Stats — orbs glossy "liquid glass" */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} hex="#cdc0f8" ink="#6e5fd0" />
-        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} hex="#c2d3f8" ink="#5b73d6" />
-        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} hex="#f8d6ba" ink="#cf7f4f" />
-        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} hex="#b3e8d6" ink="#3fa06a" />
+        <Stat icon={<Sparkles size={16} />} label="Contenus au total" value={stats.total} from="#f3a7d6" to="#b07cf0" />
+        <Stat icon={<GalleryHorizontalEnd size={16} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} from="#9fc0f7" to="#7a6cf0" />
+        <Stat icon={<Lightbulb size={16} />} label="Idées en réserve" value={rawIdeas.length} from="#f9c9a0" to="#f08fb6" />
+        <Stat icon={<TrendingUp size={16} />} label="Déjà publiés" value={published} from="#9fe6c2" to="#5fc6c2" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
