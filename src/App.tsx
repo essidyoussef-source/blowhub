@@ -13,6 +13,7 @@ import LibraryPage from './pages/LibraryPage'
 import SeriesPage from './pages/Series'
 import Settings from './pages/Settings'
 import Inspirations from './pages/Inspirations'
+import Inspire from './pages/Inspire'
 import PlatformWorkspace from './pages/PlatformWorkspace'
 import CommandPalette from './components/CommandPalette'
 import { PLATFORMS } from './constants'
@@ -139,6 +140,7 @@ export default function App() {
           <Route path="/production" element={<Production />} />
           <Route path="/library" element={<LibraryPage />} />
           <Route path="/inspirations" element={<Inspirations />} />
+          <Route path="/inspire" element={<Inspire />} />
           <Route path="/platform/:id" element={<PlatformWorkspace />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
