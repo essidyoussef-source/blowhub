@@ -51,7 +51,7 @@ function MoodCard({ idea, index, onPromote, onDelete }: {
   )
 }
 
-export default function Board() {
+export default function Board({ embedded }: { embedded?: boolean } = {}) {
   const { rawIdeas, addRawIdea, deleteRawIdea, promoteRawIdea } = useStore()
   const [text, setText] = useState('')
   const [pillar, setPillar] = useState('Mindset')
@@ -75,18 +75,28 @@ export default function Board() {
   }
 
   return (
-    <div className="px-5 md:px-8">
-      <PageHeader
-        title="Tableau d'inspiration"
-        subtitle="Vide ta tête. Épingle, colore, prends du recul — puis envoie les meilleures idées dans le pipeline."
-        icon={<LayoutGrid size={20} />}
-        actions={
-          <button className="btn bg-gradient-to-r from-blow-500 to-sunset text-white shadow-glow" onClick={generate} disabled={aiBusy}>
+    <div className={embedded ? '' : 'px-5 md:px-8'}>
+      {!embedded && (
+        <PageHeader
+          title="Tableau d'inspiration"
+          subtitle="Vide ta tête. Épingle, colore, prends du recul — puis envoie les meilleures idées dans le pipeline."
+          icon={<LayoutGrid size={20} />}
+          actions={
+            <button className="btn bg-gradient-to-r from-blow-500 to-sunset text-white shadow-glow" onClick={generate} disabled={aiBusy}>
+              {aiBusy ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
+              {aiBusy ? 'Génération…' : 'Inspire-moi (IA)'}
+            </button>
+          }
+        />
+      )}
+      {embedded && (
+        <div className="flex justify-end mb-3">
+          <button className="btn bg-gradient-to-r from-blow-500 to-blush text-white shadow-glow" onClick={generate} disabled={aiBusy}>
             {aiBusy ? <Loader2 size={16} className="animate-spin" /> : <Sparkles size={16} />}
             {aiBusy ? 'Génération…' : 'Inspire-moi (IA)'}
           </button>
-        }
-      />
+        </div>
+      )}
 
       {/* Capture rapide */}
       <div className="card p-3 flex flex-col sm:flex-row gap-2 mb-4">

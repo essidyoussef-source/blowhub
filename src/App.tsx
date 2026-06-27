@@ -18,65 +18,62 @@ import PlatformWorkspace from './pages/PlatformWorkspace'
 import CommandPalette from './components/CommandPalette'
 import { PLATFORMS } from './constants'
 
+// Navigation simplifiée : 5 espaces qui regroupent toutes les fonctionnalités.
+//  Idées = Pipeline + Tableau · Carrousels = Carrousels + Séries
+//  Planning = Calendrier + Production · Inspirations = Veille + Bibliothèque
 const NAV = [
-  { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
-  { to: '/board', label: 'Tableau', icon: LayoutGrid },
+  { to: '/', label: 'Accueil', icon: LayoutDashboard, end: true },
   { to: '/ideas', label: 'Idées', icon: KanbanSquare },
-  { to: '/calendar', label: 'Calendrier', icon: CalendarDays },
   { to: '/carousels', label: 'Carrousels', icon: GalleryHorizontalEnd },
-  { to: '/series', label: 'Séries', icon: Tv },
-  { to: '/production', label: 'Production', icon: Clapperboard },
+  { to: '/calendar', label: 'Planning', icon: CalendarDays },
   { to: '/inspirations', label: 'Inspirations', icon: Bookmark },
-  { to: '/library', label: 'Bibliothèque', icon: Library },
-  { to: '/settings', label: 'Réglages', icon: SettingsIcon },
 ]
+
+function NavItem({ to, label, Icon, end }: { to: string; label: string; Icon: any; end?: boolean }) {
+  return (
+    <NavLink to={to} end={end}
+      className={({ isActive }) =>
+        `flex items-center gap-3 rounded-2xl px-3.5 py-3 text-sm font-semibold transition-all ${
+          isActive ? 'text-white shadow-glow' : 'text-slate-300 hover:text-blow-700 hover:bg-white/60'
+        }`
+      }
+      style={({ isActive }: any) => (isActive ? { backgroundImage: 'linear-gradient(135deg,#9d85f4,#7b6cf5 55%,#6a54ee)' } : undefined)}
+    >
+      <Icon size={19} />
+      {label}
+    </NavLink>
+  )
+}
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex w-64 shrink-0 flex-col text-white relative"
-      style={{ background: 'linear-gradient(165deg, #7b6cf5 0%, #b85ad8 48%, #ec5a93 100%)' }}>
-      <div className="flex items-center gap-3 px-5 h-16">
-        <div className="grid h-9 w-9 place-items-center rounded-2xl bg-white/20 backdrop-blur-sm">
-          <Sparkles size={18} className="text-white" />
+    <aside className="hidden md:flex w-[248px] shrink-0 flex-col bg-white/45 backdrop-blur-2xl border-r border-white/60">
+      <div className="flex items-center gap-3 px-5 h-[72px]">
+        <div className="grid h-10 w-10 place-items-center rounded-2xl shadow-glow" style={{ backgroundImage: 'linear-gradient(135deg,#9d85f4,#6a54ee)' }}>
+          <Sparkles size={20} className="text-white" />
         </div>
         <div className="leading-none">
-          <div className="font-display font-extrabold text-lg tracking-tight text-white">Blow<span className="text-white/70">Hub</span></div>
-          <div className="text-[10px] uppercase tracking-widest text-white/60">Content OS</div>
+          <div className="font-display font-extrabold text-lg tracking-tight text-slate-100">Blow<span className="text-blow-500">Hub</span></div>
+          <div className="text-[10px] uppercase tracking-widest text-slate-400">Content OS</div>
         </div>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto no-scrollbar">
-        {NAV.map(({ to, label, icon: Icon, end }) => (
-          <NavLink
-            key={to}
-            to={to}
-            end={end}
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition-all ${
-                isActive
-                  ? 'bg-white text-blow-600 shadow-soft'
-                  : 'text-white/80 hover:text-white hover:bg-white/15'
-              }`
-            }
-          >
-            <Icon size={18} />
-            {label}
-          </NavLink>
-        ))}
+      <nav className="flex-1 px-3 pb-3 space-y-1.5 overflow-y-auto no-scrollbar">
+        {NAV.map((n) => <NavItem key={n.to} to={n.to} label={n.label} Icon={n.icon} end={n.end} />)}
 
-        {/* Plateformes = espaces de travail */}
-        <div className="px-3 pt-4 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-white/55">Plateformes</div>
+        <div className="px-3.5 pt-5 pb-2 text-[10px] font-bold uppercase tracking-widest text-slate-400">Mes plateformes</div>
         {PLATFORMS.map((p) => (
           <NavLink key={p.id} to={`/platform/${p.id}`}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition-all ${
-                isActive ? 'bg-white shadow-soft' : 'text-white/80 hover:text-white hover:bg-white/15'
+              `flex items-center gap-3 rounded-2xl px-3.5 py-2.5 text-sm font-semibold transition-all ${
+                isActive ? 'bg-white shadow-soft' : 'text-slate-300 hover:text-slate-100 hover:bg-white/60'
               }`
-            }
-          >
+            }>
             {({ isActive }) => (
               <>
-                <p.Icon size={18} style={{ color: isActive ? p.hex : '#fff' }} />
+                <span className="grid h-7 w-7 place-items-center rounded-xl" style={{ background: isActive ? p.hex : `${p.hex}1f` }}>
+                  <p.Icon size={15} style={{ color: isActive ? '#fff' : p.hex }} />
+                </span>
                 <span style={isActive ? { color: p.hex } : undefined}>{p.label}</span>
               </>
             )}
@@ -84,17 +81,10 @@ function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-3 border-t border-white/15">
-        <a
-          href="https://github.com/essidyoussef-source/blowhub"
-          target="_blank"
-          rel="noreferrer"
-          className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-white/70 hover:text-white hover:bg-white/15 transition"
-        >
-          <Github size={18} /> Repo du projet
-        </a>
-        <div className="px-3 pt-2 flex items-center gap-1.5 text-[10px] text-white/55">
-          <kbd className="border border-white/25 rounded px-1 py-0.5 text-white/70">⌘K</kbd>
+      <div className="p-3">
+        <NavItem to="/settings" label="Réglages" Icon={SettingsIcon} />
+        <div className="px-3.5 pt-2 flex items-center gap-1.5 text-[10px] text-slate-400">
+          <kbd className="border border-slate-900/15 rounded px-1 py-0.5">⌘K</kbd>
           <span>recherche rapide</span>
         </div>
       </div>
@@ -104,14 +94,14 @@ function Sidebar() {
 
 function MobileNav() {
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 flex justify-around border-t border-slate-900/10 bg-ink-900/95 backdrop-blur-xl py-1.5">
-      {NAV.filter((n) => ['/', '/ideas', '/calendar', '/carousels', '/library'].includes(n.to)).map(({ to, label, icon: Icon, end }) => (
+    <nav className="md:hidden fixed bottom-3 inset-x-3 z-40 flex justify-around rounded-3xl border border-white/70 bg-white/70 backdrop-blur-2xl shadow-glass py-2">
+      {NAV.map(({ to, label, icon: Icon, end }) => (
         <NavLink
           key={to}
           to={to}
           end={end}
           className={({ isActive }) =>
-            `flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-semibold ${isActive ? 'text-blow-400' : 'text-slate-500'}`
+            `flex flex-col items-center gap-0.5 px-2 py-1 text-[10px] font-semibold ${isActive ? 'text-blow-600' : 'text-slate-400'}`
           }
         >
           <Icon size={20} />

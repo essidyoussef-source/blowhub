@@ -6,11 +6,12 @@ import ContentModal from '../components/ContentModal'
 import { useStore } from '../store'
 import type { Content } from '../types'
 
-export default function SeriesPage() {
+export default function SeriesPage({ embedded }: { embedded?: boolean } = {}) {
   const contents = useStore((s) => s.contents)
   const addContent = useStore((s) => s.addContent)
   const [openId, setOpenId] = useState<string | null>(null)
   const [newName, setNewName] = useState('')
+  const createSeries = () => { if (newName.trim()) { const id = addContent({ series: newName.trim(), format: 'Série', title: `${newName.trim()} #01` }); setNewName(''); setOpenId(id) } }
 
   const series = useMemo(() => {
     const map: Record<string, Content[]> = {}
@@ -23,24 +24,19 @@ export default function SeriesPage() {
 
   const names = Object.keys(series)
 
+  const creator = (
+    <div className="flex items-center gap-2">
+      <input className="input w-52 !py-2" placeholder="Nom d'une nouvelle série…" value={newName}
+        onChange={(e) => setNewName(e.target.value)} onKeyDown={(e) => e.key === 'Enter' && createSeries()} />
+      <button className="btn-primary" disabled={!newName.trim()} onClick={createSeries}><Plus size={16} /> Série</button>
+    </div>
+  )
+
   return (
-    <div className="px-5 md:px-8">
-      <PageHeader
-        title="Séries"
-        subtitle="Tes formats récurrents, numérotés automatiquement. Construis une marque, pas juste des posts."
-        icon={<Tv size={20} />}
-        actions={
-          <div className="flex items-center gap-2">
-            <input className="input w-52 !py-2" placeholder="Nom d'une nouvelle série…" value={newName}
-              onChange={(e) => setNewName(e.target.value)}
-              onKeyDown={(e) => { if (e.key === 'Enter' && newName.trim()) { const id = addContent({ series: newName.trim(), format: 'Série', title: `${newName.trim()} #01` }); setNewName(''); setOpenId(id) } }} />
-            <button className="btn-primary" disabled={!newName.trim()}
-              onClick={() => { if (newName.trim()) { const id = addContent({ series: newName.trim(), format: 'Série', title: `${newName.trim()} #01` }); setNewName(''); setOpenId(id) } }}>
-              <Plus size={16} /> Série
-            </button>
-          </div>
-        }
-      />
+    <div className={embedded ? '' : 'px-5 md:px-8'}>
+      {embedded
+        ? <div className="flex justify-end mb-4">{creator}</div>
+        : <PageHeader title="Séries" subtitle="Tes formats récurrents, numérotés automatiquement. Construis une marque, pas juste des posts." icon={<Tv size={20} />} actions={creator} />}
 
       {names.length === 0 ? (
         <div className="card p-12 text-center text-slate-500">

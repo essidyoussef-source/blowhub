@@ -1,11 +1,13 @@
 import { useMemo, useState } from 'react'
 import {
   GalleryHorizontalEnd, Plus, Pencil, Maximize2, ChevronLeft, ChevronRight, X,
-  ImageDown, ChevronDown, Trash2, FolderOpen,
+  ImageDown, ChevronDown, Trash2, FolderOpen, Tv,
 } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ContentModal from '../components/ContentModal'
 import CarouselExport from '../components/CarouselExport'
+import SeriesPage from './Series'
+import Segmented from '../components/Segmented'
 import { useStore } from '../store'
 import { PILLARS, pillarOf } from '../constants'
 import { PillarBadge, StatusBadge } from '../components/Badges'
@@ -181,6 +183,7 @@ export default function Carousels() {
   const [exportId, setExportId] = useState<string | null>(null)
   const [expandedId, setExpandedId] = useState<string | null>(null)
   const [pillar, setPillar] = useState('')
+  const [view, setView] = useState<'carousels' | 'series'>('carousels')
 
   const carousels = useMemo(
     () => contents.filter((c) => c.format === 'Carrousel' && (!pillar || c.pillar === pillar))
@@ -201,8 +204,18 @@ export default function Carousels() {
         title="Carrousels"
         subtitle="Des dossiers de projets. Déplie pour faire défiler, éditer, ajouter ou supprimer des slides."
         icon={<GalleryHorizontalEnd size={20} />}
-        actions={<button className="btn-primary" onClick={newCarousel}><Plus size={16} /> Nouveau carrousel</button>}
+        actions={
+          <div className="flex items-center gap-2">
+            <Segmented value={view} onChange={setView} options={[
+              { id: 'carousels', label: 'Carrousels', icon: GalleryHorizontalEnd },
+              { id: 'series', label: 'Séries', icon: Tv },
+            ]} />
+            {view === 'carousels' && <button className="btn-primary" onClick={newCarousel}><Plus size={16} /> Nouveau</button>}
+          </div>
+        }
       />
+
+      {view === 'series' ? <SeriesPage embedded /> : <>
 
       <div className="flex items-center gap-1.5 mb-5 flex-wrap">
         <button onClick={() => setPillar('')}
@@ -232,6 +245,7 @@ export default function Carousels() {
           </div>
         )}
       </div>
+      </>}
 
       {editId && <ContentModal id={editId} onClose={() => setEditId(null)} />}
       {present && <Presenter content={present} onClose={() => setPresentId(null)} />}

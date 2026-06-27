@@ -22,10 +22,10 @@ function Stat({ icon, label, value, grad }: { icon: React.ReactNode; label: stri
   )
 }
 
-function Panel({ tint, accent, title, action, children }: { tint: string; accent: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
+function Panel({ accent, title, action, children }: { accent: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="rounded-3xl p-5 shadow-card border border-white/60 relative overflow-hidden" style={{ background: tint }}>
-      <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: accent }} />
+    <div className="card p-5 relative overflow-hidden">
+      <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-4xl" style={{ background: accent }} />
       <div className="flex items-center justify-between mb-4 mt-1">
         <h3 className="font-display font-bold text-slate-100">{title}</h3>
         {action}
@@ -75,15 +75,15 @@ export default function Dashboard() {
 
       {/* Stats — blocs couleur pleine (façon palette) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} grad="linear-gradient(135deg,#ff7eb3,#ec1763)" />
-        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} grad="linear-gradient(135deg,#8aa0f0,#5568af)" />
-        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} grad="linear-gradient(135deg,#ffc06b,#f37826)" />
-        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} grad="linear-gradient(135deg,#6fe0d6,#2aa6b8)" />
+        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} grad="linear-gradient(135deg,#b9a7f7,#7b6cf5)" />
+        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} grad="linear-gradient(135deg,#9db8f5,#7c9bf2)" />
+        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} grad="linear-gradient(135deg,#f7c39b,#f6a978)" />
+        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} grad="linear-gradient(135deg,#8fe0cf,#5fcdb6)" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
         {/* Pipeline funnel */}
-        <Panel tint="#eaf7f9" accent="#2aa6b8" title="Ton pipeline"
+        <Panel accent="#7c9bf2" title="Ton pipeline"
           action={<button className="text-xs text-blow-600 hover:text-blow-700 inline-flex items-center gap-1 font-semibold" onClick={() => navigate('/ideas')}>Ouvrir le board <ArrowRight size={13} /></button>}>
           <div className="space-y-2.5">
             {STATUSES.map((s) => {
@@ -104,7 +104,7 @@ export default function Dashboard() {
         </Panel>
 
         {/* Pillars */}
-        <Panel tint="#fdeaf2" accent="#ec1763" title="Répartition par pilier"
+        <Panel accent="#b9a7f7" title="Répartition par pilier"
           action={<button className="text-xs text-blow-600 hover:text-blow-700 inline-flex items-center gap-1 font-semibold" onClick={() => navigate('/carousels')}>Voir les carrousels <ArrowRight size={13} /></button>}>
           <div className="space-y-2.5">
             {PILLARS.filter((p) => stats.byPillar[p.id]).sort((a, b) => (stats.byPillar[b.id] ?? 0) - (stats.byPillar[a.id] ?? 0)).map((p) => {
@@ -124,8 +124,7 @@ export default function Dashboard() {
       </div>
 
       {/* Priorités */}
-      <Panel tint="#fef1e7" accent="#f37826"
-        title="Tes priorités du moment">
+      <Panel accent="#f6a978" title="Tes priorités du moment">
         {priority.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {priority.map((c) => <ContentCard key={c.id} content={c} onClick={() => setOpenId(c.id)} />)}

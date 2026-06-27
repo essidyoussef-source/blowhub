@@ -13,13 +13,14 @@ import {
 } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ContentModal from '../components/ContentModal'
+import Production from './Production'
 import { useStore } from '../store'
 import { FORMATS, PLATFORMS, PILLARS, formatOf, platformOf, pillarOf } from '../constants'
 import type { Content } from '../types'
 
 const TODAY = new Date(2026, 5, 26)
 type ColorMode = 'format' | 'platform' | 'pillar'
-type View = 'day' | 'week' | 'month'
+type View = 'day' | 'week' | 'month' | 'production'
 type Kind = 'publish' | 'shoot' | 'edit'
 
 function colorFor(c: Content, mode: ColorMode): string {
@@ -192,8 +193,8 @@ export default function CalendarPage() {
   return (
     <div className="px-5 md:px-8">
       <PageHeader
-        title="Calendrier éditorial"
-        subtitle="Vue agenda. Glisse un post sur un autre jour pour le reprogrammer."
+        title="Planning"
+        subtitle="Ton calendrier éditorial et ta production, au même endroit."
         icon={<CalendarDays size={20} />}
         actions={
           <button className="btn-primary" onClick={() => addOn(format(cursor, 'yyyy-MM-dd'))}><Plus size={16} /> Programmer</button>
@@ -247,11 +248,12 @@ export default function CalendarPage() {
                 <button className="btn-icon" onClick={() => nav(1)}><ChevronRight size={18} /></button>
                 <button className="btn-ghost !py-1.5 text-xs ml-1" onClick={() => setCursor(TODAY)}>Aujourd'hui</button>
               </div>
-              <div className="flex gap-1.5 rounded-xl bg-slate-900/[0.04] p-1">
-                {(['day', 'week', 'month'] as View[]).map((v) => (
+              <div className="flex gap-1.5 rounded-full bg-white/60 border border-white/70 p-1">
+                {(['day', 'week', 'month', 'production'] as View[]).map((v) => (
                   <button key={v} onClick={() => setView(v)}
-                    className={`px-3 py-1.5 rounded-lg text-xs font-semibold transition ${view === v ? 'bg-white text-blow-600 shadow-soft' : 'text-slate-400 hover:text-blow-600'}`}>
-                    {v === 'day' ? 'Jour' : v === 'week' ? 'Semaine' : 'Mois'}
+                    className={`px-3 py-1.5 rounded-full text-xs font-bold transition ${view === v ? 'text-white shadow-glow' : 'text-slate-300 hover:text-blow-600'}`}
+                    style={view === v ? { backgroundImage: 'linear-gradient(135deg,#9d85f4,#6a54ee)' } : undefined}>
+                    {v === 'day' ? 'Jour' : v === 'week' ? 'Semaine' : v === 'month' ? 'Mois' : 'Production'}
                   </button>
                 ))}
               </div>
@@ -273,6 +275,9 @@ export default function CalendarPage() {
                 <DayColumn day={cursor} items={byDay[format(cursor, 'yyyy-MM-dd')] ?? []} mode={mode} onAdd={() => addOn(format(cursor, 'yyyy-MM-dd'))} onOpen={setOpenId} big />
               </div>
             )}
+
+            {/* PRODUCTION */}
+            {view === 'production' && <Production embedded />}
 
             {/* MONTH */}
             {view === 'month' && (

@@ -81,7 +81,7 @@ function Lane({ title, icon, accent, items, kind, onOpen }: {
   )
 }
 
-export default function Production() {
+export default function Production({ embedded }: { embedded?: boolean } = {}) {
   const contents = useStore((s) => s.contents)
   const [openId, setOpenId] = useState<string | null>(null)
 
@@ -89,12 +89,14 @@ export default function Production() {
   const toEdit = useMemo(() => contents.filter((c) => c.status === 'a-monter' || c.editDate), [contents])
 
   return (
-    <div className="px-5 md:px-8">
-      <PageHeader
-        title="Production"
-        subtitle="Organise tes journées de tournage et tes sessions de montage."
-        icon={<Clapperboard size={20} />}
-      />
+    <div className={embedded ? '' : 'px-5 md:px-8'}>
+      {!embedded && (
+        <PageHeader
+          title="Production"
+          subtitle="Organise tes journées de tournage et tes sessions de montage."
+          icon={<Clapperboard size={20} />}
+        />
+      )}
       <div className="flex gap-5 flex-wrap items-start">
         <Lane title="Tournages" icon={<Clapperboard size={18} />} accent="#fb923c" items={toShoot} kind="shoot" onOpen={setOpenId} />
         <Lane title="Montages" icon={<Scissors size={18} />} accent="#22d3ee" items={toEdit} kind="edit" onOpen={setOpenId} />

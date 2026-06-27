@@ -2,58 +2,55 @@
 @tailwind components;
 @tailwind utilities;
 
-:root {
-  color-scheme: light;
-}
-
-html, body, #root {
-  height: 100%;
-}
+:root { color-scheme: light; }
+html, body, #root { height: 100%; }
 
 body {
   @apply bg-ink-950 text-slate-300 font-sans antialiased;
   background-image:
-    radial-gradient(900px 600px at 100% -8%, rgba(236, 23, 99, 0.16), transparent 55%),
-    radial-gradient(760px 560px at -6% 4%, rgba(85, 104, 175, 0.18), transparent 52%),
-    radial-gradient(680px 520px at 12% 105%, rgba(243, 120, 38, 0.14), transparent 55%),
-    radial-gradient(720px 520px at 95% 92%, rgba(76, 196, 214, 0.16), transparent 55%),
-    radial-gradient(560px 460px at 55% 45%, rgba(205, 214, 41, 0.08), transparent 60%);
+    radial-gradient(800px 600px at 8% -5%, rgba(143, 124, 248, 0.30), transparent 58%),
+    radial-gradient(760px 620px at 98% 4%, rgba(124, 155, 242, 0.26), transparent 56%),
+    radial-gradient(720px 560px at 88% 96%, rgba(246, 169, 120, 0.20), transparent 56%),
+    radial-gradient(720px 560px at 4% 100%, rgba(239, 147, 192, 0.20), transparent 56%),
+    radial-gradient(620px 520px at 50% 50%, rgba(95, 205, 214, 0.10), transparent 62%);
   background-attachment: fixed;
 }
 
 /* Scrollbars */
-* { scrollbar-width: thin; scrollbar-color: #e7d9e6 transparent; }
+* { scrollbar-width: thin; scrollbar-color: #ddd4f2 transparent; }
 *::-webkit-scrollbar { height: 10px; width: 10px; }
-*::-webkit-scrollbar-thumb { background: #e7d9e6; border-radius: 9999px; border: 2px solid transparent; background-clip: padding-box; }
-*::-webkit-scrollbar-thumb:hover { background: #d2c2d2; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb { background: #ddd4f2; border-radius: 9999px; border: 2px solid transparent; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb:hover { background: #c7baea; background-clip: padding-box; }
 
 @layer components {
+  /* Carte en verre dépoli (neo-apple) */
   .card {
-    @apply bg-white border border-slate-900/[0.06] rounded-3xl shadow-card;
+    @apply bg-white/60 backdrop-blur-2xl border border-white/70 rounded-4xl shadow-glass;
   }
   .btn {
-    @apply inline-flex items-center gap-2 rounded-2xl px-3.5 py-2 text-sm font-semibold transition-all
-           active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none;
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all
+           active:scale-[0.97] disabled:opacity-40 disabled:pointer-events-none;
   }
   .btn-primary {
-    @apply btn bg-blow-500 text-white hover:bg-blow-600 shadow-glow;
+    @apply btn text-white shadow-glow;
+    background-image: linear-gradient(135deg, #9d85f4, #7b6cf5 55%, #6a54ee);
   }
   .btn-ghost {
-    @apply btn bg-white text-slate-300 hover:bg-ink-800 border border-slate-900/[0.08] shadow-soft;
+    @apply btn bg-white/70 text-slate-200 hover:bg-white border border-white/70 shadow-soft backdrop-blur-md;
   }
   .btn-icon {
-    @apply inline-flex items-center justify-center rounded-xl h-8 w-8 text-slate-400
-           hover:text-blow-600 hover:bg-blow-50 transition-colors;
+    @apply inline-flex items-center justify-center rounded-2xl h-9 w-9 text-slate-400
+           hover:text-blow-600 hover:bg-white/70 transition-colors;
   }
   .input {
-    @apply w-full rounded-2xl bg-white border border-slate-900/[0.10] px-3.5 py-2 text-sm text-slate-100
-           placeholder:text-slate-500 outline-none focus:border-blow-400 focus:ring-4 focus:ring-blow-500/15 transition;
+    @apply w-full rounded-2xl bg-white/70 border border-white/80 px-3.5 py-2.5 text-sm text-slate-100
+           placeholder:text-slate-400 outline-none focus:border-blow-300 focus:ring-4 focus:ring-blow-500/15 transition backdrop-blur-md;
   }
   .chip {
     @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap;
   }
   .label {
-    @apply text-[11px] font-bold uppercase tracking-wider text-slate-500 mb-1.5 block;
+    @apply text-[11px] font-bold uppercase tracking-wider text-slate-400 mb-1.5 block;
   }
 }
 

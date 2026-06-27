@@ -4,66 +4,74 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Surfaces (thème clair, lumineux) ───────────────────────────────
-        // "ink-*" = fonds clairs (du plus doux au plus blanc).
+        // ── Surfaces (lavande clair, glassy) ───────────────────────────────
         ink: {
-          950: '#fcf6fb', // fond de page (rosé très doux)
-          900: '#ffffff', // sidebar / barres
-          850: '#ffffff', // cartes
-          800: '#fbf2f8', // hover / inputs
-          700: '#f3e9f1', // bordure douce
-          600: '#e7d9e6',
-          500: '#d2c2d2',
+          950: '#efebfb', // fond de page (lavande très doux)
+          900: '#ffffff',
+          850: '#ffffff',
+          800: '#f5f1fd', // hover / inputs
+          700: '#ebe5f9', // bordure douce
+          600: '#ddd4f2',
+          500: '#c7baea',
         },
-        // ── Texte (échelle sombre→clair pour fond clair) ───────────────────
+        // ── Texte (échelle sombre→clair, teinté violet) ────────────────────
         slate: {
           50: '#ffffff',
-          100: '#1d1633',
-          200: '#2a2342',
-          300: '#4f4965',
-          400: '#736d88',
-          500: '#938da6',
-          600: '#b4afc4',
-          700: '#3d3852',
-          800: '#28223e',
-          900: '#1a1430',
+          100: '#241a45',
+          200: '#322a55',
+          300: '#5a5278',
+          400: '#837ba0',
+          500: '#a49cc2',
+          600: '#c3bcdd',
+          700: '#433b66',
+          800: '#2e2650',
+          900: '#221a42',
         },
-        // ── Marque : Electric Rose (action principale) ─────────────────────
+        // ── Marque : Violet périwinkle (action principale) ─────────────────
         blow: {
-          50: '#fef0f6',
-          100: '#fde0ec',
-          200: '#fbc1da',
-          300: '#f892bd',
-          400: '#f25596',
-          500: '#ec1763', // Electric Rose
-          600: '#d40f53',
-          700: '#b00d46',
-          800: '#910f3e',
-          900: '#7a1139',
+          50: '#f2effe',
+          100: '#e8e2fd',
+          200: '#d4c9fb',
+          300: '#b9a7f7',
+          400: '#9d85f4',
+          500: '#7b6cf5',
+          600: '#6a54ee',
+          700: '#5a42d6',
+          800: '#4a37ad',
+          900: '#3f3290',
         },
-        // ── Palette créative (photo DA) ────────────────────────────────────
-        sky: { DEFAULT: '#5568af', soft: '#e4e8f5' },
-        aqua: { DEFAULT: '#4cc4d6', soft: '#ceeaee' },
-        lime: { DEFAULT: '#a8b81f', soft: '#eef2c4', bright: '#cdd629' },
-        rose: { DEFAULT: '#ec1763', soft: '#f8c9dd' },
-        blush: { DEFAULT: '#ef7fb0', soft: '#f8c9dd' },
-        sunset: { DEFAULT: '#f37826', soft: '#fde0cd' },
+        // ── Palette pastel (mesh neo-apple) ────────────────────────────────
+        grape: { DEFAULT: '#8f7cf8', soft: '#e7e0fb' },
+        peri: { DEFAULT: '#7c9bf2', soft: '#dce6fb' },
+        peach: { DEFAULT: '#f6a978', soft: '#fce6d6' },
+        blush: { DEFAULT: '#ef93c0', soft: '#fbdcec' },
+        mint: { DEFAULT: '#5fcdb6', soft: '#d6f1ea' },
+        sky: { DEFAULT: '#62b6e8', soft: '#d6ecf9' },
+        sunset: { DEFAULT: '#f6a978', soft: '#fce6d6' },
+        aqua: { DEFAULT: '#5fcdd6', soft: '#d6f1f3' },
+        lime: { DEFAULT: '#a8b81f', soft: '#eef2c4' },
+        rose: { DEFAULT: '#ef93c0', soft: '#fbdcec' },
       },
       fontFamily: {
-        sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-        display: ['"Fraunces"', 'Inter', 'serif'],
+        sans: ['"Plus Jakarta Sans"', 'system-ui', '-apple-system', 'sans-serif'],
+        display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
+      },
+      borderRadius: {
+        '4xl': '2rem',
       },
       boxShadow: {
-        glow: '0 8px 24px -8px rgba(236,23,99,0.45)',
-        card: '0 1px 2px rgba(26,20,48,0.04), 0 12px 32px -16px rgba(85,104,175,0.22)',
-        soft: '0 2px 10px -4px rgba(26,20,48,0.10)',
-        pin: '0 14px 30px -12px rgba(26,20,48,0.30)',
+        glow: '0 12px 30px -10px rgba(123,108,245,0.50)',
+        card: '0 14px 44px -18px rgba(90,66,214,0.26)',
+        soft: '0 6px 20px -8px rgba(90,66,214,0.18)',
+        pin: '0 16px 34px -14px rgba(34,26,66,0.30)',
+        glass: '0 8px 32px -12px rgba(90,66,214,0.22), inset 0 1px 0 rgba(255,255,255,0.6)',
       },
       keyframes: {
-        'fade-in': { '0%': { opacity: '0', transform: 'translateY(4px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
-        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-4px)' } },
+        'fade-in': { '0%': { opacity: '0', transform: 'translateY(6px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },
+        float: { '0%,100%': { transform: 'translateY(0)' }, '50%': { transform: 'translateY(-6px)' } },
+        blob: { '0%,100%': { borderRadius: '42% 58% 60% 40% / 50% 44% 56% 50%' }, '50%': { borderRadius: '58% 42% 40% 60% / 44% 56% 44% 56%' } },
       },
-      animation: { 'fade-in': 'fade-in 0.2s ease-out', float: 'float 4s ease-in-out infinite' },
+      animation: { 'fade-in': 'fade-in 0.25s ease-out', float: 'float 6s ease-in-out infinite', blob: 'blob 12s ease-in-out infinite' },
     },
   },
   plugins: [],

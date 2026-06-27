@@ -18,7 +18,7 @@ function CopyBtn({ text }: { text: string }) {
   )
 }
 
-export default function LibraryPage() {
+export default function LibraryPage({ embedded }: { embedded?: boolean } = {}) {
   const { quotes, anecdotes, rawIdeas, captions, addRawIdea, deleteRawIdea, promoteRawIdea } = useStore()
   const [tab, setTab] = useState<Tab>('ideas')
   const [newIdea, setNewIdea] = useState('')
@@ -55,12 +55,14 @@ export default function LibraryPage() {
   }, [anecdotes])
 
   return (
-    <div className="px-5 md:px-8">
-      <PageHeader
-        title="Bibliothèque"
-        subtitle="Ta réserve de munitions : idées brutes, punchlines, anecdotes et captions."
-        icon={<Library size={20} />}
-      />
+    <div className={embedded ? '' : 'px-5 md:px-8'}>
+      {!embedded && (
+        <PageHeader
+          title="Bibliothèque"
+          subtitle="Ta réserve de munitions : idées brutes, punchlines, anecdotes et captions."
+          icon={<Library size={20} />}
+        />
+      )}
 
       {/* Tabs */}
       <div className="flex items-center gap-1.5 mb-5 flex-wrap">

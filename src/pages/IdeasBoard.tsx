@@ -8,10 +8,12 @@ import {
 } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
 import { useDroppable } from '@dnd-kit/core'
-import { KanbanSquare, Plus, Search, X } from 'lucide-react'
+import { KanbanSquare, Plus, Search, X, Columns3, LayoutGrid } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import ContentCard from '../components/ContentCard'
 import ContentModal from '../components/ContentModal'
+import Board from './Board'
+import Segmented from '../components/Segmented'
 import { useStore } from '../store'
 import { STATUSES, PILLARS, FORMATS, pillarOf } from '../constants'
 import type { Content, StatusId } from '../types'
@@ -75,6 +77,7 @@ export default function IdeasBoard() {
   const [q, setQ] = useState('')
   const [pillar, setPillar] = useState<string>('')
   const [format, setFormat] = useState<string>('')
+  const [view, setView] = useState<'pipeline' | 'tableau'>('pipeline')
 
   const sensors = useSensors(useSensor(PointerSensor, { activationConstraint: { distance: 6 } }))
 
@@ -138,14 +141,22 @@ export default function IdeasBoard() {
     <div className="px-5 md:px-8">
       <PageHeader
         title="Idées"
-        subtitle="Glisse tes contenus de « idée » jusqu'à « publié ». Tout ton pipeline, d'un coup d'œil."
+        subtitle="Le pipeline pour avancer, le tableau pour faire éclore. Deux vues, un seul espace."
         icon={<KanbanSquare size={20} />}
         actions={
-          <button className="btn-primary" onClick={() => { const id = addContent({ status: 'idee' }); setOpenId(id) }}>
-            <Plus size={16} /> Nouvelle idée
-          </button>
+          <div className="flex items-center gap-2">
+            <Segmented value={view} onChange={setView} options={[
+              { id: 'pipeline', label: 'Pipeline', icon: Columns3 },
+              { id: 'tableau', label: 'Tableau', icon: LayoutGrid },
+            ]} />
+            <button className="btn-primary" onClick={() => { const id = addContent({ status: 'idee' }); setOpenId(id) }}>
+              <Plus size={16} /> Nouvelle idée
+            </button>
+          </div>
         }
       />
+
+      {view === 'tableau' ? <Board embedded /> : <>
 
       {/* Filtres */}
       <div className="flex items-center gap-2 mb-4 flex-wrap">
@@ -193,6 +204,7 @@ export default function IdeasBoard() {
           {activeContent ? <div className="w-[280px] rotate-2"><ContentCard content={activeContent} /></div> : null}
         </DragOverlay>
       </DndContext>
+      </>}
 
       {openId && <ContentModal id={openId} onClose={() => setOpenId(null)} />}
     </div>
