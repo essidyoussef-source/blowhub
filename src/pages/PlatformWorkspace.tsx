@@ -166,11 +166,11 @@ export default function PlatformWorkspace() {
 
 function Stat({ label, value, hex, icon }: { label: string; value: number; hex: string; icon: React.ReactNode }) {
   return (
-    <div className="card p-4 flex items-center gap-3">
-      <div className="grid h-11 w-11 place-items-center rounded-xl shrink-0" style={{ background: `${hex}18`, color: hex }}>{icon}</div>
+    <div className="rounded-3xl p-4 flex items-center gap-3 shadow-card" style={{ background: hex }}>
+      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/25 text-white shrink-0">{icon}</div>
       <div>
-        <div className="text-2xl font-display font-extrabold text-slate-100 leading-none">{value}</div>
-        <div className="text-xs text-slate-400 mt-1">{label}</div>
+        <div className="text-3xl font-display font-extrabold text-white leading-none">{value}</div>
+        <div className="text-xs text-white/90 mt-1 font-medium">{label}</div>
       </div>
     </div>
   )

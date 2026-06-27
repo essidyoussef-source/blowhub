@@ -11,12 +11,25 @@ import { STATUSES, PILLARS, statusOf, pillarOf } from '../constants'
 
 function Stat({ icon, label, value, accent }: { icon: React.ReactNode; label: string; value: number | string; accent: string }) {
   return (
-    <div className="card p-4 flex items-center gap-3">
-      <div className="grid h-11 w-11 place-items-center rounded-xl shrink-0" style={{ background: `${accent}22`, color: accent }}>{icon}</div>
-      <div>
-        <div className="text-2xl font-display font-extrabold text-slate-100 leading-none">{value}</div>
-        <div className="text-xs text-slate-400 mt-1">{label}</div>
+    <div className="rounded-3xl p-4 flex items-center gap-3 shadow-card relative overflow-hidden" style={{ background: accent }}>
+      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/25 text-white shrink-0 backdrop-blur-sm">{icon}</div>
+      <div className="relative">
+        <div className="text-3xl font-display font-extrabold text-white leading-none">{value}</div>
+        <div className="text-xs text-white/90 mt-1 font-medium">{label}</div>
       </div>
+    </div>
+  )
+}
+
+function Panel({ tint, accent, title, action, children }: { tint: string; accent: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
+  return (
+    <div className="rounded-3xl p-5 shadow-card border border-white/60 relative overflow-hidden" style={{ background: tint }}>
+      <div className="absolute top-0 left-0 right-0 h-1.5" style={{ background: accent }} />
+      <div className="flex items-center justify-between mb-4 mt-1">
+        <h3 className="font-display font-bold text-slate-100">{title}</h3>
+        {action}
+      </div>
+      {children}
     </div>
   )
 }
@@ -59,80 +72,67 @@ export default function Dashboard() {
         }
       />
 
-      {/* Stats */}
+      {/* Stats — blocs couleur pleine (façon palette) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} accent="#ff2d77" />
-        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} accent="#818cf8" />
-        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} accent="#fbbf24" />
-        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} accent="#34d399" />
+        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} accent="#ec1763" />
+        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} accent="#5568af" />
+        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} accent="#f37826" />
+        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} accent="#2aa6b8" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
         {/* Pipeline funnel */}
-        <div className="card p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display font-bold text-slate-100">Ton pipeline</h3>
-            <button className="text-xs text-blow-400 hover:text-blow-300 inline-flex items-center gap-1 font-semibold" onClick={() => navigate('/ideas')}>
-              Ouvrir le board <ArrowRight size={13} />
-            </button>
-          </div>
+        <Panel tint="#eaf7f9" accent="#2aa6b8" title="Ton pipeline"
+          action={<button className="text-xs text-blow-600 hover:text-blow-700 inline-flex items-center gap-1 font-semibold" onClick={() => navigate('/ideas')}>Ouvrir le board <ArrowRight size={13} /></button>}>
           <div className="space-y-2.5">
             {STATUSES.map((s) => {
               const v = stats.byStatus[s.id]
               return (
                 <div key={s.id} className="flex items-center gap-3">
-                  <div className="w-28 text-xs text-slate-400 flex items-center gap-1.5 shrink-0">
+                  <div className="w-28 text-xs text-slate-300 flex items-center gap-1.5 shrink-0">
                     <span className={`h-2 w-2 rounded-full ${s.dot}`} /> {s.label}
                   </div>
-                  <div className="flex-1 h-2.5 rounded-full bg-slate-900/[0.04] overflow-hidden">
+                  <div className="flex-1 h-2.5 rounded-full bg-white/70 overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${(v / maxStatus) * 100}%`, background: s.hex }} />
                   </div>
-                  <div className="w-6 text-right text-xs font-mono text-slate-300">{v}</div>
+                  <div className="w-6 text-right text-xs font-mono text-slate-200">{v}</div>
                 </div>
               )
             })}
           </div>
-        </div>
+        </Panel>
 
         {/* Pillars */}
-        <div className="card p-5">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-display font-bold text-slate-100">Répartition par pilier</h3>
-            <button className="text-xs text-blow-400 hover:text-blow-300 inline-flex items-center gap-1 font-semibold" onClick={() => navigate('/carousels')}>
-              Voir les carrousels <ArrowRight size={13} />
-            </button>
-          </div>
+        <Panel tint="#fdeaf2" accent="#ec1763" title="Répartition par pilier"
+          action={<button className="text-xs text-blow-600 hover:text-blow-700 inline-flex items-center gap-1 font-semibold" onClick={() => navigate('/carousels')}>Voir les carrousels <ArrowRight size={13} /></button>}>
           <div className="space-y-2.5">
             {PILLARS.filter((p) => stats.byPillar[p.id]).sort((a, b) => (stats.byPillar[b.id] ?? 0) - (stats.byPillar[a.id] ?? 0)).map((p) => {
               const v = stats.byPillar[p.id] ?? 0
               return (
                 <div key={p.id} className="flex items-center gap-3">
-                  <div className="w-28 text-xs text-slate-400 shrink-0"><p.Icon size={12} className="shrink-0" /> {p.label}</div>
-                  <div className="flex-1 h-2.5 rounded-full bg-slate-900/[0.04] overflow-hidden">
+                  <div className="w-28 text-xs text-slate-300 flex items-center gap-1.5 shrink-0"><p.Icon size={12} className="shrink-0" style={{ color: p.hex }} /> {p.label}</div>
+                  <div className="flex-1 h-2.5 rounded-full bg-white/70 overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${(v / maxPillar) * 100}%`, background: p.hex }} />
                   </div>
-                  <div className="w-6 text-right text-xs font-mono text-slate-300">{v}</div>
+                  <div className="w-6 text-right text-xs font-mono text-slate-200">{v}</div>
                 </div>
               )
             })}
           </div>
-        </div>
+        </Panel>
       </div>
 
       {/* Priorités */}
-      <div className="card p-5">
-        <div className="flex items-center gap-2 mb-4">
-          <Flame size={18} className="text-blow-400" />
-          <h3 className="font-display font-bold text-slate-100">Tes priorités du moment</h3>
-        </div>
+      <Panel tint="#fef1e7" accent="#f37826"
+        title="Tes priorités du moment">
         {priority.length > 0 ? (
           <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-3">
             {priority.map((c) => <ContentCard key={c.id} content={c} onClick={() => setOpenId(c.id)} />)}
           </div>
         ) : (
-          <p className="text-sm text-slate-500">Aucune priorité haute en attente. Passe des contenus en priorité « Haute »</p>
+          <p className="text-sm text-slate-300">Aucune priorité haute en attente. Passe des contenus en priorité « Haute »</p>
         )}
-      </div>
+      </Panel>
 
       {openId && <ContentModal id={openId} onClose={() => setOpenId(null)} />}
     </div>

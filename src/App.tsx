@@ -33,7 +33,8 @@ const NAV = [
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-slate-900/[0.06] bg-ink-900/60 backdrop-blur-xl">
+    <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-slate-900/[0.06] backdrop-blur-xl"
+      style={{ background: 'linear-gradient(180deg, #ffffff 0%, #fdeef6 38%, #f3eafc 66%, #e8f6f8 100%)' }}>
       <div className="flex items-center gap-3 px-5 h-16 border-b border-slate-900/[0.06]">
         <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-blow-400 to-blow-700 shadow-glow">
           <Sparkles size={18} className="text-white" />
