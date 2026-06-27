@@ -13,7 +13,7 @@ function ProdCard({ content, kind, onOpen }: { content: Content; kind: 'shoot' |
   const dateKey = kind === 'shoot' ? 'shootDate' : 'editDate'
   const date = kind === 'shoot' ? content.shootDate : content.editDate
   return (
-    <div className="rounded-xl bg-ink-850 border border-white/5 p-3 hover:border-white/15 transition relative overflow-hidden">
+    <div className="rounded-xl bg-ink-850 border border-slate-900/[0.06] p-3 hover:border-slate-900/15 transition relative overflow-hidden">
       <span className="absolute left-0 top-0 h-full w-1" style={{ background: p.hex }} />
       <button onClick={onOpen} className="text-left w-full pl-1.5">
         <div className="flex items-center gap-1.5 mb-1.5">
@@ -28,19 +28,19 @@ function ProdCard({ content, kind, onOpen }: { content: Content; kind: 'shoot' |
           type="date"
           value={date ?? ''}
           onChange={(e) => update(content.id, { [dateKey]: e.target.value || null } as any)}
-          className="input !py-1 !px-2 !text-xs [color-scheme:dark] w-auto"
+          className="input !py-1 !px-2 !text-xs [color-scheme:light] w-auto"
         />
         {kind === 'shoot' && (
           <button
             onClick={() => update(content.id, { status: 'a-monter' })}
-            className="ml-auto text-[11px] text-cyan-300 hover:text-cyan-200 inline-flex items-center gap-1 font-semibold"
+            className="ml-auto text-[11px] text-teal-600 hover:text-teal-700 inline-flex items-center gap-1 font-semibold"
             title="Passer au montage"
           >Monter <ArrowRight size={12} /></button>
         )}
         {kind === 'edit' && (
           <button
             onClick={() => update(content.id, { status: 'programme' })}
-            className="ml-auto text-[11px] text-indigo-300 hover:text-indigo-200 inline-flex items-center gap-1 font-semibold"
+            className="ml-auto text-[11px] text-indigo-600 hover:text-indigo-700 inline-flex items-center gap-1 font-semibold"
             title="Prêt à programmer"
           >Programmer <ArrowRight size={12} /></button>
         )}
@@ -60,7 +60,7 @@ function Lane({ title, icon, accent, items, kind, onOpen }: {
       <div className="flex items-center gap-2 mb-4">
         <div className="grid h-9 w-9 place-items-center rounded-xl" style={{ background: `${accent}22`, color: accent }}>{icon}</div>
         <div>
-          <h3 className="font-display font-bold text-white">{title}</h3>
+          <h3 className="font-display font-bold text-slate-100">{title}</h3>
           <p className="text-xs text-slate-500">{items.length} contenu{items.length > 1 ? 's' : ''}</p>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function Production() {
     <div className="px-5 md:px-8">
       <PageHeader
         title="Production"
-        subtitle="Organise tes journées de tournage 🎬 et tes sessions de montage ✂️."
+        subtitle="Organise tes journées de tournage et tes sessions de montage."
         icon={<Clapperboard size={20} />}
       />
       <div className="flex gap-5 flex-wrap items-start">
@@ -100,7 +100,7 @@ export default function Production() {
         <Lane title="Montages" icon={<Scissors size={18} />} accent="#22d3ee" items={toEdit} kind="edit" onOpen={setOpenId} />
       </div>
       <p className="text-xs text-slate-500 mt-4">
-        💡 Astuce : passe un Reel en statut « À tourner » dans son éditeur pour le voir apparaître ici automatiquement.
+        Astuce : passe un Reel en statut « À tourner » dans son éditeur pour le voir apparaître ici automatiquement.
       </p>
       {openId && <ContentModal id={openId} onClose={() => setOpenId(null)} />}
     </div>

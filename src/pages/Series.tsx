@@ -56,7 +56,7 @@ export default function SeriesPage() {
                   <div className="flex items-center gap-3">
                     <div className="grid h-10 w-10 place-items-center rounded-xl bg-blow-500/15 text-blow-400"><Tv size={18} /></div>
                     <div>
-                      <h3 className="text-lg font-display font-bold text-white">{name}</h3>
+                      <h3 className="text-lg font-display font-bold text-slate-100">{name}</h3>
                       <p className="text-xs text-slate-500">{episodes.length} épisode{episodes.length > 1 ? 's' : ''}</p>
                     </div>
                   </div>

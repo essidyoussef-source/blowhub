@@ -31,7 +31,10 @@ function ExportSlide({
     >
       {/* top bar */}
       <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', fontSize: 30, color: 'rgba(255,255,255,0.55)' }}>
-        <span style={{ fontWeight: 700 }}>{p.emoji} {content.pillar}</span>
+        <span style={{ fontWeight: 700, display: 'flex', alignItems: 'center', gap: 10 }}>
+          <span style={{ width: 14, height: 14, borderRadius: 99, background: p.hex, display: 'inline-block' }} />
+          {content.pillar}
+        </span>
         <span style={{ fontFamily: 'monospace' }}>{String(index + 1).padStart(2, '0')} / {String(total).padStart(2, '0')}</span>
       </div>
 

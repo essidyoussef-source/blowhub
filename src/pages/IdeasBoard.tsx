@@ -48,7 +48,7 @@ function Column({
       <div
         ref={setNodeRef}
         className={`flex-1 min-h-[120px] rounded-2xl border p-2 space-y-2 transition-colors ${
-          isOver ? `${def.bg} ${def.border}` : 'border-white/5 bg-ink-900/40'
+          isOver ? `${def.bg} ${def.border}` : 'border-slate-900/[0.06] bg-ink-900/40'
         }`}
       >
         <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
@@ -158,15 +158,15 @@ export default function IdeasBoard() {
             <button
               key={p.id}
               onClick={() => setPillar(pillar === p.id ? '' : p.id)}
-              className={`chip transition ${pillar === p.id ? `${p.bg} ${p.text} ${p.border}` : 'border-white/10 text-slate-400 hover:text-white'}`}
+              className={`chip transition ${pillar === p.id ? `${p.bg} ${p.text} ${p.border}` : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}
             >
-              {p.emoji} {p.label}
+              <p.Icon size={12} className="shrink-0" /> {p.label}
             </button>
           ))}
         </div>
         <select className="input w-auto !py-1.5 text-xs" value={format} onChange={(e) => setFormat(e.target.value)}>
           <option value="">Tous formats</option>
-          {FORMATS.map((f) => <option key={f.id} value={f.id}>{f.emoji} {f.label}</option>)}
+          {FORMATS.map((f) => <option key={f.id} value={f.id}>{f.label}</option>)}
         </select>
         {activeFilters && (
           <button className="btn-ghost !py-1.5 text-xs" onClick={() => { setQ(''); setPillar(''); setFormat('') }}>

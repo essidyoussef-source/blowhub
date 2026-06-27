@@ -26,13 +26,13 @@ const NAV = [
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-white/5 bg-ink-900/60 backdrop-blur-xl">
-      <div className="flex items-center gap-3 px-5 h-16 border-b border-white/5">
+    <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-slate-900/[0.06] bg-ink-900/60 backdrop-blur-xl">
+      <div className="flex items-center gap-3 px-5 h-16 border-b border-slate-900/[0.06]">
         <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-blow-400 to-blow-700 shadow-glow">
           <Sparkles size={18} className="text-white" />
         </div>
         <div className="leading-none">
-          <div className="font-display font-extrabold text-lg tracking-tight text-white">Blow<span className="text-blow-400">Hub</span></div>
+          <div className="font-display font-extrabold text-lg tracking-tight text-slate-100">Blow<span className="text-blow-400">Hub</span></div>
           <div className="text-[10px] uppercase tracking-widest text-slate-500">Content OS</div>
         </div>
       </div>
@@ -46,8 +46,8 @@ function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
                 isActive
-                  ? 'bg-blow-500/15 text-white shadow-[inset_0_0_0_1px_rgba(255,45,119,0.3)]'
-                  : 'text-slate-400 hover:text-white hover:bg-white/5'
+                  ? 'bg-blow-50 text-blow-700 shadow-[inset_0_0_0_1px_rgba(255,45,119,0.3)]'
+                  : 'text-slate-400 hover:text-blow-600 hover:bg-slate-900/[0.04]'
               }`
             }
           >
@@ -61,17 +61,17 @@ function Sidebar() {
         ))}
       </nav>
 
-      <div className="p-3 border-t border-white/5">
+      <div className="p-3 border-t border-slate-900/[0.06]">
         <a
           href="https://github.com/essidyoussef-source/blowhub"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-white hover:bg-white/5 transition"
+          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-blow-600 hover:bg-slate-900/[0.04] transition"
         >
           <Github size={18} /> Repo du projet
         </a>
         <div className="px-3 pt-2 flex items-center gap-1.5 text-[10px] text-slate-600">
-          <kbd className="border border-white/10 rounded px-1 py-0.5 text-slate-500">⌘K</kbd>
+          <kbd className="border border-slate-900/10 rounded px-1 py-0.5 text-slate-500">⌘K</kbd>
           <span>recherche rapide</span>
         </div>
         <p className="px-3 pt-1.5 text-[10px] text-slate-600 leading-relaxed">
@@ -84,7 +84,7 @@ function Sidebar() {
 
 function MobileNav() {
   return (
-    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 flex justify-around border-t border-white/10 bg-ink-900/95 backdrop-blur-xl py-1.5">
+    <nav className="md:hidden fixed bottom-0 inset-x-0 z-40 flex justify-around border-t border-slate-900/10 bg-ink-900/95 backdrop-blur-xl py-1.5">
       {NAV.filter((n) => ['/', '/ideas', '/calendar', '/carousels', '/library'].includes(n.to)).map(({ to, label, icon: Icon, end }) => (
         <NavLink
           key={to}

@@ -53,7 +53,7 @@ function DayCell({
   return (
     <div
       ref={setNodeRef}
-      className={`group min-h-[118px] border-b border-r border-white/5 p-1.5 relative transition-colors ${
+      className={`group min-h-[118px] border-b border-r border-slate-900/[0.06] p-1.5 relative transition-colors ${
         inMonth ? '' : 'bg-black/20'
       } ${isOver ? 'bg-blow-500/10 ring-1 ring-inset ring-blow-500/40' : ''}`}
     >
@@ -67,13 +67,13 @@ function DayCell({
         {cell?.publish.map((c) => <PostChip key={c.id} content={c} mode={mode} onOpen={() => onOpen(c.id)} />)}
         {cell?.shoot.map((c) => (
           <button key={'s' + c.id} onClick={() => onOpen(c.id)}
-            className="w-full flex items-center gap-1 text-left rounded-md px-1.5 py-0.5 text-[10px] text-orange-300 bg-orange-500/10 truncate">
+            className="w-full flex items-center gap-1 text-left rounded-md px-1.5 py-0.5 text-[10px] text-orange-700 bg-orange-50 truncate">
             <Clapperboard size={10} /> {c.title}
           </button>
         ))}
         {cell?.edit.map((c) => (
           <button key={'e' + c.id} onClick={() => onOpen(c.id)}
-            className="w-full flex items-center gap-1 text-left rounded-md px-1.5 py-0.5 text-[10px] text-cyan-300 bg-cyan-500/10 truncate">
+            className="w-full flex items-center gap-1 text-left rounded-md px-1.5 py-0.5 text-[10px] text-teal-700 bg-teal-50 truncate">
             <Scissors size={10} /> {c.title}
           </button>
         ))}
@@ -141,10 +141,10 @@ export default function CalendarPage() {
         subtitle="Glisse un post pour le reprogrammer. Code couleur configurable."
         icon={<CalendarDays size={20} />}
         actions={
-          <div className="flex items-center gap-1.5 rounded-xl bg-white/5 p-1">
+          <div className="flex items-center gap-1.5 rounded-xl bg-slate-900/[0.04] p-1">
             {(['format', 'platform', 'pillar'] as ColorMode[]).map((m) => (
               <button key={m} onClick={() => setMode(m)}
-                className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition ${mode === m ? 'bg-blow-500 text-white' : 'text-slate-400 hover:text-white'}`}>
+                className={`px-3 py-1.5 rounded-lg text-xs font-semibold capitalize transition ${mode === m ? 'bg-blow-500 text-white' : 'text-slate-400 hover:text-blow-600'}`}>
                 {m === 'format' ? 'Format' : m === 'platform' ? 'Plateforme' : 'Pilier'}
               </button>
             ))}
@@ -155,7 +155,7 @@ export default function CalendarPage() {
       <div className="flex items-center justify-between gap-4 mb-4 flex-wrap">
         <div className="flex items-center gap-2">
           <button className="btn-icon" onClick={() => setCursor(subMonths(cursor, 1))}><ChevronLeft size={18} /></button>
-          <div className="text-lg font-display font-bold text-white capitalize w-44 text-center">{format(cursor, 'MMMM yyyy', { locale: fr })}</div>
+          <div className="text-lg font-display font-bold text-slate-100 capitalize w-44 text-center">{format(cursor, 'MMMM yyyy', { locale: fr })}</div>
           <button className="btn-icon" onClick={() => setCursor(addMonths(cursor, 1))}><ChevronRight size={18} /></button>
           <button className="btn-ghost !py-1.5 text-xs ml-2" onClick={() => setCursor(new Date(2026, 5, 1))}>Aujourd'hui</button>
           <span className="text-xs text-slate-500 ml-2">{scheduledCount} publication{scheduledCount > 1 ? 's' : ''} ce mois</span>
@@ -172,7 +172,7 @@ export default function CalendarPage() {
 
       <DndContext sensors={sensors} collisionDetection={pointerWithin} onDragStart={onDragStart} onDragEnd={onDragEnd}>
         <div className="card overflow-hidden">
-          <div className="grid grid-cols-7 border-b border-white/5">
+          <div className="grid grid-cols-7 border-b border-slate-900/[0.06]">
             {['Lun', 'Mar', 'Mer', 'Jeu', 'Ven', 'Sam', 'Dim'].map((d) => (
               <div key={d} className="px-3 py-2 text-[11px] font-bold uppercase tracking-wider text-slate-500 text-center">{d}</div>
             ))}
@@ -205,7 +205,7 @@ export default function CalendarPage() {
       </DndContext>
 
       <p className="text-xs text-slate-500 mt-3">
-        💡 Glisse-dépose un post sur un autre jour pour le reprogrammer. Les tournages 🎬 et montages ✂️ s'affichent aussi ici.
+        Glisse-dépose un post sur un autre jour pour le reprogrammer. Les dates de tournage et de montage apparaissent aussi ici.
       </p>
 
       {openId && <ContentModal id={openId} onClose={() => setOpenId(null)} />}

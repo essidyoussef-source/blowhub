@@ -53,17 +53,17 @@ export default function CommandPalette() {
       {open && createPortal(
         <div className="fixed inset-0 z-[60] flex items-start justify-center pt-[12vh] px-4">
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm animate-fade-in" onClick={() => setOpen(false)} />
-          <div className="relative z-10 w-full max-w-xl rounded-2xl bg-ink-900 border border-white/10 shadow-2xl overflow-hidden animate-fade-in">
-            <div className="flex items-center gap-3 px-4 border-b border-white/5">
+          <div className="relative z-10 w-full max-w-xl rounded-2xl bg-ink-900 border border-slate-900/10 shadow-2xl overflow-hidden animate-fade-in">
+            <div className="flex items-center gap-3 px-4 border-b border-slate-900/[0.06]">
               <Search size={18} className="text-slate-500" />
               <input
                 autoFocus
                 value={q}
                 onChange={(e) => setQ(e.target.value)}
                 placeholder="Rechercher un contenu, une page…"
-                className="flex-1 bg-transparent py-3.5 text-sm text-white outline-none placeholder:text-slate-500"
+                className="flex-1 bg-transparent py-3.5 text-sm text-slate-100 outline-none placeholder:text-slate-500"
               />
-              <kbd className="text-[10px] text-slate-500 border border-white/10 rounded px-1.5 py-0.5">ESC</kbd>
+              <kbd className="text-[10px] text-slate-500 border border-slate-900/10 rounded px-1.5 py-0.5">ESC</kbd>
             </div>
             <div className="max-h-[55vh] overflow-y-auto p-2">
               {results.pages.length > 0 && (
@@ -71,7 +71,7 @@ export default function CommandPalette() {
                   <div className="px-2 py-1 text-[10px] font-bold uppercase tracking-wider text-slate-600">Pages</div>
                   {results.pages.map((p) => (
                     <button key={p.to} onClick={() => { navigate(p.to); setOpen(false) }}
-                      className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-200 hover:bg-white/5 text-left">
+                      className="w-full flex items-center gap-3 rounded-lg px-3 py-2 text-sm text-slate-200 hover:bg-slate-900/[0.04] text-left">
                       <CornerDownLeft size={14} className="text-slate-500" /> {p.label}
                     </button>
                   ))}
@@ -84,10 +84,10 @@ export default function CommandPalette() {
                     const p = pillarOf(c.pillar); const f = formatOf(c.format)
                     return (
                       <button key={c.id} onClick={() => { setOpen(false); setOpenId(c.id) }}
-                        className="w-full flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-white/5 text-left">
+                        className="w-full flex items-center gap-3 rounded-lg px-3 py-2 hover:bg-slate-900/[0.04] text-left">
                         <span className="h-2 w-2 rounded-full shrink-0" style={{ background: p.hex }} />
                         <span className="text-sm text-slate-200 truncate flex-1">{c.title}</span>
-                        <span className="text-[10px] text-slate-500">{f.emoji} {p.label}</span>
+                        <span className="text-[10px] text-slate-500"><f.Icon size={11} className="shrink-0" /> {p.label}</span>
                       </button>
                     )
                   })}

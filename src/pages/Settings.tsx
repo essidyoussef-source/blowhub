@@ -13,9 +13,9 @@ function Section({ icon, title, desc, children }: { icon: React.ReactNode; title
   return (
     <section className="card p-5 md:p-6">
       <div className="flex items-center gap-3 mb-4">
-        <div className="grid h-10 w-10 place-items-center rounded-xl bg-white/5 text-blow-400">{icon}</div>
+        <div className="grid h-10 w-10 place-items-center rounded-xl bg-slate-900/[0.04] text-blow-400">{icon}</div>
         <div>
-          <h3 className="font-display font-bold text-white">{title}</h3>
+          <h3 className="font-display font-bold text-slate-100">{title}</h3>
           {desc && <p className="text-xs text-slate-400">{desc}</p>}
         </div>
       </div>
@@ -54,7 +54,7 @@ export default function Settings() {
       try {
         const data = JSON.parse(String(reader.result))
         store.replaceAll(data)
-        setCloudMsg('Import réussi ✓')
+        setCloudMsg('Import réussi')
       } catch {
         setCloudMsg('Fichier invalide ✗')
       }
@@ -64,7 +64,7 @@ export default function Settings() {
 
   const doSignIn = async () => {
     setBusy(true); setCloudMsg(null)
-    try { await signIn(email); setCloudMsg('Lien magique envoyé — vérifie ta boîte mail 📩') }
+    try { await signIn(email); setCloudMsg('Lien magique envoyé — vérifie ta boîte mail') }
     catch (e: any) { setCloudMsg('Erreur : ' + (e?.message ?? 'connexion impossible')) }
     finally { setBusy(false) }
   }
@@ -72,7 +72,7 @@ export default function Settings() {
     setBusy(true); setCloudMsg(null)
     try {
       await pushState({ contents: store.contents, quotes: store.quotes, anecdotes: store.anecdotes, rawIdeas: store.rawIdeas, captions: store.captions })
-      setCloudMsg('Sauvegardé dans le cloud ✓')
+      setCloudMsg('Sauvegardé dans le cloud')
     } catch (e: any) { setCloudMsg('Erreur : ' + (e?.message ?? '')) }
     finally { setBusy(false) }
   }
@@ -80,7 +80,7 @@ export default function Settings() {
     setBusy(true); setCloudMsg(null)
     try {
       const data = await pullState()
-      if (data) { store.replaceAll(data as any); setCloudMsg('Récupéré depuis le cloud ✓') }
+      if (data) { store.replaceAll(data as any); setCloudMsg('Récupéré depuis le cloud') }
       else setCloudMsg('Aucune sauvegarde cloud trouvée.')
     } catch (e: any) { setCloudMsg('Erreur : ' + (e?.message ?? '')) }
     finally { setBusy(false) }
@@ -140,7 +140,7 @@ export default function Settings() {
             </p>
           ) : cloudUser ? (
             <div className="mt-4 flex items-center gap-2 flex-wrap">
-              <span className="chip border-emerald-500/30 bg-emerald-500/10 text-emerald-300"><Check size={12} /> Connectée : {cloudUser}</span>
+              <span className="chip border-emerald-200 bg-emerald-50 text-emerald-700"><Check size={12} /> Connectée : {cloudUser}</span>
               <button className="btn-ghost !py-1.5 text-xs" onClick={doPush} disabled={busy}><Cloud size={14} /> Sauvegarder</button>
               <button className="btn-ghost !py-1.5 text-xs" onClick={doPull} disabled={busy}><RefreshCw size={14} /> Récupérer</button>
               <button className="btn-ghost !py-1.5 text-xs" onClick={() => { signOut(); setCloudUser(null) }}><LogOut size={14} /> Déconnexion</button>

@@ -64,20 +64,20 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
     <div className="fixed inset-0 z-50 flex items-stretch md:items-center justify-center p-0 md:p-6">
       <div className="absolute inset-0 bg-black/70 backdrop-blur-sm animate-fade-in" onClick={onClose} />
       <div
-        className="relative z-10 w-full md:max-w-3xl md:rounded-3xl bg-ink-900 border border-white/10 shadow-2xl overflow-hidden flex flex-col max-h-screen md:max-h-[90vh] animate-fade-in"
+        className="relative z-10 w-full md:max-w-3xl md:rounded-3xl bg-ink-900 border border-slate-900/10 shadow-2xl overflow-hidden flex flex-col max-h-screen md:max-h-[90vh] animate-fade-in"
         style={{ boxShadow: `0 0 0 1px ${p.hex}22, 0 30px 80px -20px #000` }}
       >
         {/* Bandeau couleur pilier */}
         <div className="h-1.5 w-full" style={{ background: p.hex }} />
 
         {/* Header */}
-        <div className="flex items-start gap-3 px-5 md:px-7 pt-4 pb-3 border-b border-white/5">
+        <div className="flex items-start gap-3 px-5 md:px-7 pt-4 pb-3 border-b border-slate-900/[0.06]">
           <div className="flex-1">
             <input
               value={content.title}
               onChange={(e) => set({ title: e.target.value })}
               placeholder="Titre du contenu…"
-              className="w-full bg-transparent text-xl md:text-2xl font-display font-extrabold text-white outline-none placeholder:text-slate-600"
+              className="w-full bg-transparent text-xl md:text-2xl font-display font-extrabold text-slate-100 outline-none placeholder:text-slate-600"
             />
             <input
               value={content.hook}
@@ -103,11 +103,11 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
           <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
             <Field label="Pilier">
               <Select value={content.pillar} onChange={(v) => set({ pillar: v })}
-                options={PILLARS.map((x) => ({ value: x.id, label: `${x.emoji} ${x.label}` }))} />
+                options={PILLARS.map((x) => ({ value: x.id, label: x.label }))} />
             </Field>
             <Field label="Format">
               <Select value={content.format} onChange={(v) => set({ format: v as Content['format'] })}
-                options={FORMATS.map((x) => ({ value: x.id, label: `${x.emoji} ${x.label}` }))} />
+                options={FORMATS.map((x) => ({ value: x.id, label: x.label }))} />
             </Field>
             <Field label="Plateforme">
               <Select value={content.platform} onChange={(v) => set({ platform: v as Content['platform'] })}
@@ -127,7 +127,7 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
             </Field>
           </div>
           {content.framework && (
-            <p className="-mt-3 text-xs text-slate-500">💡 {frameworkHint[content.framework]}</p>
+            <p className="-mt-3 text-xs text-slate-500">{frameworkHint[content.framework]}</p>
           )}
 
           <div className="grid md:grid-cols-2 gap-3">
@@ -167,10 +167,10 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
             {aiErr && <p className="text-xs text-rose-400 mb-2">{aiErr}</p>}
             <div className="space-y-2">
               {content.slides.map((s, i) => (
-                <div key={i} className="flex gap-2 items-start rounded-xl bg-ink-850 border border-white/5 p-2.5">
+                <div key={i} className="flex gap-2 items-start rounded-xl bg-ink-850 border border-slate-900/[0.06] p-2.5">
                   <div className="flex flex-col items-center pt-1 text-slate-600">
                     <GripVertical size={14} />
-                    <span className="mt-1 grid h-6 w-6 place-items-center rounded-md bg-white/5 text-[11px] font-bold text-slate-300">{i + 1}</span>
+                    <span className="mt-1 grid h-6 w-6 place-items-center rounded-md bg-slate-900/[0.04] text-[11px] font-bold text-slate-300">{i + 1}</span>
                   </div>
                   <div className="flex-1 space-y-1.5">
                     <input className="input !py-1.5 !text-xs font-semibold" value={s.title ?? ''} placeholder="Titre de la slide (optionnel)"
@@ -182,7 +182,7 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
                 </div>
               ))}
               {content.slides.length === 0 && (
-                <button onClick={addSlide} className="w-full rounded-xl border border-dashed border-white/10 py-6 text-sm text-slate-500 hover:text-slate-300 hover:border-white/20 transition">
+                <button onClick={addSlide} className="w-full rounded-xl border border-dashed border-slate-900/10 py-6 text-sm text-slate-500 hover:text-slate-300 hover:border-slate-900/15 transition">
                   + Ajouter la première slide
                 </button>
               )}
@@ -210,13 +210,13 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
 
           {/* Dates de production */}
           <div className="grid grid-cols-3 gap-3">
-            <Field label="📅 Publication">
+            <Field label="Publication">
               <DateInput value={content.publishDate} icon={<Calendar size={14} />} onChange={(v) => set({ publishDate: v })} />
             </Field>
-            <Field label="🎬 Tournage">
+            <Field label="Tournage">
               <DateInput value={content.shootDate} icon={<Clapperboard size={14} />} onChange={(v) => set({ shootDate: v })} />
             </Field>
-            <Field label="✂️ Montage">
+            <Field label="Montage">
               <DateInput value={content.editDate} icon={<Scissors size={14} />} onChange={(v) => set({ editDate: v })} />
             </Field>
           </div>
@@ -242,7 +242,7 @@ function DateInput({ value, onChange }: { value?: string | null; icon?: React.Re
       type="date"
       value={value ?? ''}
       onChange={(e) => onChange(e.target.value || null)}
-      className="input [color-scheme:dark] !text-xs"
+      className="input [color-scheme:light] !text-xs"
     />
   )
 }
