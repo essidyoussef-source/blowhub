@@ -33,74 +33,70 @@ const NAV = [
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex w-64 shrink-0 flex-col border-r border-slate-900/[0.06] backdrop-blur-xl"
-      style={{ background: 'linear-gradient(180deg, #ffffff 0%, #fdeef6 38%, #f3eafc 66%, #e8f6f8 100%)' }}>
-      <div className="flex items-center gap-3 px-5 h-16 border-b border-slate-900/[0.06]">
-        <div className="grid h-9 w-9 place-items-center rounded-xl bg-gradient-to-br from-blow-400 to-blow-700 shadow-glow">
+    <aside className="hidden md:flex w-64 shrink-0 flex-col text-white relative"
+      style={{ background: 'linear-gradient(165deg, #7b6cf5 0%, #b85ad8 48%, #ec5a93 100%)' }}>
+      <div className="flex items-center gap-3 px-5 h-16">
+        <div className="grid h-9 w-9 place-items-center rounded-2xl bg-white/20 backdrop-blur-sm">
           <Sparkles size={18} className="text-white" />
         </div>
         <div className="leading-none">
-          <div className="font-display font-extrabold text-lg tracking-tight text-slate-100">Blow<span className="text-blow-400">Hub</span></div>
-          <div className="text-[10px] uppercase tracking-widest text-slate-500">Content OS</div>
+          <div className="font-display font-extrabold text-lg tracking-tight text-white">Blow<span className="text-white/70">Hub</span></div>
+          <div className="text-[10px] uppercase tracking-widest text-white/60">Content OS</div>
         </div>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto no-scrollbar">
         {NAV.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
             to={to}
             end={end}
             className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+              `flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition-all ${
                 isActive
-                  ? 'bg-blow-50 text-blow-700 shadow-[inset_0_0_0_1px_rgba(236,23,99,0.25)]'
-                  : 'text-slate-400 hover:text-blow-600 hover:bg-slate-900/[0.04]'
+                  ? 'bg-white text-blow-600 shadow-soft'
+                  : 'text-white/80 hover:text-white hover:bg-white/15'
+              }`
+            }
+          >
+            <Icon size={18} />
+            {label}
+          </NavLink>
+        ))}
+
+        {/* Plateformes = espaces de travail */}
+        <div className="px-3 pt-4 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-white/55">Plateformes</div>
+        {PLATFORMS.map((p) => (
+          <NavLink key={p.id} to={`/platform/${p.id}`}
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-semibold transition-all ${
+                isActive ? 'bg-white shadow-soft' : 'text-white/80 hover:text-white hover:bg-white/15'
               }`
             }
           >
             {({ isActive }) => (
               <>
-                <Icon size={18} className={isActive ? 'text-blow-500' : ''} />
-                {label}
+                <p.Icon size={18} style={{ color: isActive ? p.hex : '#fff' }} />
+                <span style={isActive ? { color: p.hex } : undefined}>{p.label}</span>
               </>
             )}
           </NavLink>
         ))}
-
-        {/* Plateformes = espaces de travail */}
-        <div className="px-3 pt-4 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-600">Plateformes</div>
-        {PLATFORMS.map((p) => (
-          <NavLink key={p.id} to={`/platform/${p.id}`}
-            className={({ isActive }) =>
-              `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
-                isActive ? 'text-slate-100' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900/[0.04]'
-              }`
-            }
-            style={({ isActive }: any) => (isActive ? { background: `${p.hex}14`, boxShadow: `inset 0 0 0 1px ${p.hex}40` } : undefined)}
-          >
-            <p.Icon size={18} style={{ color: p.hex }} />
-            {p.label}
-          </NavLink>
-        ))}
       </nav>
 
-      <div className="p-3 border-t border-slate-900/[0.06]">
+      <div className="p-3 border-t border-white/15">
         <a
           href="https://github.com/essidyoussef-source/blowhub"
           target="_blank"
           rel="noreferrer"
-          className="flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-medium text-slate-500 hover:text-blow-600 hover:bg-slate-900/[0.04] transition"
+          className="flex items-center gap-3 rounded-2xl px-3 py-2.5 text-sm font-medium text-white/70 hover:text-white hover:bg-white/15 transition"
         >
           <Github size={18} /> Repo du projet
         </a>
-        <div className="px-3 pt-2 flex items-center gap-1.5 text-[10px] text-slate-600">
-          <kbd className="border border-slate-900/10 rounded px-1 py-0.5 text-slate-500">⌘K</kbd>
+        <div className="px-3 pt-2 flex items-center gap-1.5 text-[10px] text-white/55">
+          <kbd className="border border-white/25 rounded px-1 py-0.5 text-white/70">⌘K</kbd>
           <span>recherche rapide</span>
         </div>
-        <p className="px-3 pt-1.5 text-[10px] text-slate-600 leading-relaxed">
-          Données sauvegardées dans ton navigateur. v0.2
-        </p>
       </div>
     </aside>
   )

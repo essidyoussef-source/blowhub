@@ -9,10 +9,11 @@ import ContentModal from '../components/ContentModal'
 import { useStore } from '../store'
 import { STATUSES, PILLARS, statusOf, pillarOf } from '../constants'
 
-function Stat({ icon, label, value, accent }: { icon: React.ReactNode; label: string; value: number | string; accent: string }) {
+function Stat({ icon, label, value, grad }: { icon: React.ReactNode; label: string; value: number | string; grad: string }) {
   return (
-    <div className="rounded-3xl p-4 flex items-center gap-3 shadow-card relative overflow-hidden" style={{ background: accent }}>
-      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/25 text-white shrink-0 backdrop-blur-sm">{icon}</div>
+    <div className="rounded-3xl p-4 flex items-center gap-3 shadow-card relative overflow-hidden" style={{ background: grad }}>
+      <div className="absolute -right-6 -top-8 h-24 w-24 rounded-full bg-white/15" />
+      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/25 text-white shrink-0 backdrop-blur-sm">{icon}</div>
       <div className="relative">
         <div className="text-3xl font-display font-extrabold text-white leading-none">{value}</div>
         <div className="text-xs text-white/90 mt-1 font-medium">{label}</div>
@@ -74,10 +75,10 @@ export default function Dashboard() {
 
       {/* Stats — blocs couleur pleine (façon palette) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} accent="#ec1763" />
-        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} accent="#5568af" />
-        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} accent="#f37826" />
-        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} accent="#2aa6b8" />
+        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} grad="linear-gradient(135deg,#ff7eb3,#ec1763)" />
+        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} grad="linear-gradient(135deg,#8aa0f0,#5568af)" />
+        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} grad="linear-gradient(135deg,#ffc06b,#f37826)" />
+        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} grad="linear-gradient(135deg,#6fe0d6,#2aa6b8)" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
