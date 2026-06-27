@@ -33,7 +33,7 @@ function colorFor(c: Content, mode: ColorMode): string {
 function EventCard({ content, kind, mode, onOpen }: { content: Content; kind: Kind; mode: ColorMode; onOpen: () => void }) {
   const draggable = kind === 'publish'
   const { attributes, listeners, setNodeRef, isDragging } = useDraggable({ id: `post:${content.id}`, disabled: !draggable })
-  const color = kind === 'shoot' ? '#f37826' : kind === 'edit' ? '#0d9488' : colorFor(content, mode)
+  const color = kind === 'shoot' ? '#f3b58f' : kind === 'edit' ? '#8fd5cb' : colorFor(content, mode)
   const Icon = kind === 'shoot' ? Clapperboard : kind === 'edit' ? Scissors : null
   return (
     <button
@@ -209,7 +209,7 @@ export default function CalendarPage() {
 
             <div className="card p-4">
               <div className="label">Afficher</div>
-              {([['publish', 'Publications', Send, '#ec1763'], ['shoot', 'Tournages', Clapperboard, '#f37826'], ['edit', 'Montages', Scissors, '#0d9488']] as const).map(([k, lbl, Icon, hex]) => (
+              {([['publish', 'Publications', Send, '#b3a3f3'], ['shoot', 'Tournages', Clapperboard, '#f3b58f'], ['edit', 'Montages', Scissors, '#8fd5cb']] as const).map(([k, lbl, Icon, hex]) => (
                 <label key={k} className="flex items-center gap-2 py-1.5 cursor-pointer">
                   <input type="checkbox" checked={show[k]} onChange={(e) => setShow((s) => ({ ...s, [k]: e.target.checked }))}
                     className="accent-blow-500 h-4 w-4" />
@@ -329,7 +329,7 @@ function MonthCell({ day, inMonth, items, mode, onAdd, onOpen }: {
       </div>
       <div className="space-y-1">
         {items.slice(0, 4).map(({ c, kind }) => {
-          const color = kind === 'shoot' ? '#f37826' : kind === 'edit' ? '#0d9488' : colorFor(c, mode)
+          const color = kind === 'shoot' ? '#f3b58f' : kind === 'edit' ? '#8fd5cb' : colorFor(c, mode)
           return (
             <button key={kind + c.id} onClick={() => onOpen(c.id)}
               className="w-full text-left rounded-md px-1.5 py-0.5 text-[10px] font-medium text-slate-100 truncate"

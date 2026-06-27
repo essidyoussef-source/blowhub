@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { Library, Quote as QuoteIcon, Sparkle, Lightbulb, Type, Plus, ArrowUpRight, Trash2, Copy, Check, Sparkles, Loader2 } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import { useStore } from '../store'
-import { PILLARS, pillarOf } from '../constants'
+import { PILLARS, pillarOf, tone } from '../constants'
 import { generateIdeas, AiError } from '../lib/ai'
 
 type Tab = 'quotes' | 'anecdotes' | 'ideas' | 'captions'
@@ -102,7 +102,8 @@ export default function LibraryPage({ embedded }: { embedded?: boolean } = {}) {
             <button onClick={() => setPillarFilter('')} className={`chip ${!pillarFilter ? 'bg-slate-100 text-slate-100 border-slate-900/15' : 'border-slate-900/10 text-slate-400'}`}>Tous</button>
             {PILLARS.slice(0, 8).map((p) => (
               <button key={p.id} onClick={() => setPillarFilter(pillarFilter === p.id ? '' : p.id)}
-                className={`chip transition ${pillarFilter === p.id ? `${p.bg} ${p.text} ${p.border}` : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}>
+                className={`chip border transition ${pillarFilter === p.id ? '' : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}
+                style={pillarFilter === p.id ? tone(p.hex, p.ink) : undefined}>
                 <p.Icon size={12} className="shrink-0" /> {p.label}
               </button>
             ))}

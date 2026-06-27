@@ -1,36 +1,30 @@
 import { Flame } from 'lucide-react'
-import { pillarOf, formatOf, platformOf, statusOf, priorityOf, frameworkHint } from '../constants'
+import { pillarOf, formatOf, platformOf, statusOf, priorityOf, frameworkHint, tone } from '../constants'
 import type { Content } from '../types'
 
 export function PillarBadge({ id, sm }: { id?: string; sm?: boolean }) {
   const p = pillarOf(id)
-  const s = sm ? 11 : 13
   return (
-    <span className={`chip ${p.bg} ${p.text} ${p.border} ${sm ? 'text-[10px] px-2 py-0' : ''}`}>
-      <p.Icon size={s} />
-      {p.label}
+    <span className={`chip border ${sm ? 'text-[10px] px-2 py-0' : ''}`} style={tone(p.hex, p.ink)}>
+      <p.Icon size={sm ? 11 : 13} /> {p.label}
     </span>
   )
 }
 
 export function FormatBadge({ id, sm }: { id?: Content['format']; sm?: boolean }) {
   const f = formatOf(id)
-  const s = sm ? 11 : 13
   return (
-    <span className={`chip ${f.bg} ${f.text} ${f.border} ${sm ? 'text-[10px] px-2 py-0' : ''}`}>
-      <f.Icon size={s} />
-      {f.label}
+    <span className={`chip border ${sm ? 'text-[10px] px-2 py-0' : ''}`} style={tone(f.hex, f.ink)}>
+      <f.Icon size={sm ? 11 : 13} /> {f.label}
     </span>
   )
 }
 
 export function PlatformBadge({ id, sm }: { id?: Content['platform']; sm?: boolean }) {
   const p = platformOf(id)
-  const s = sm ? 11 : 13
   return (
-    <span className={`chip ${p.bg} ${p.text} ${p.border} ${sm ? 'text-[10px] px-2 py-0' : ''}`}>
-      <p.Icon size={s} />
-      {p.label}
+    <span className={`chip border ${sm ? 'text-[10px] px-2 py-0' : ''}`} style={tone(p.hex, p.ink)}>
+      <p.Icon size={sm ? 11 : 13} /> {p.label}
     </span>
   )
 }
@@ -38,9 +32,8 @@ export function PlatformBadge({ id, sm }: { id?: Content['platform']; sm?: boole
 export function StatusBadge({ id }: { id: Content['status'] }) {
   const s = statusOf(id)
   return (
-    <span className={`chip ${s.bg} ${s.text} ${s.border}`}>
-      <s.Icon size={12} />
-      {s.label}
+    <span className="chip border" style={tone(s.hex, s.ink)}>
+      <s.Icon size={12} /> {s.label}
     </span>
   )
 }
@@ -49,9 +42,8 @@ export function PriorityBadge({ id }: { id?: Content['priority'] }) {
   const p = priorityOf(id)
   if (p.id === 'basse') return null
   return (
-    <span className={`chip ${p.bg} ${p.text} border-transparent`}>
-      {p.id === 'haute' && <Flame size={11} />}
-      {p.label}
+    <span className="chip border-transparent" style={{ background: `${p.hex}26`, color: p.ink }}>
+      {p.id === 'haute' && <Flame size={11} />} {p.label}
     </span>
   )
 }
@@ -59,7 +51,7 @@ export function PriorityBadge({ id }: { id?: Content['priority'] }) {
 export function FrameworkBadge({ id }: { id?: string | null }) {
   if (!id) return null
   return (
-    <span className="chip border-slate-900/10 bg-slate-900/[0.03] text-slate-400" title={frameworkHint[id] ?? ''}>
+    <span className="chip border-slate-900/10 bg-white/60 text-slate-400" title={frameworkHint[id] ?? ''}>
       {id}
     </span>
   )

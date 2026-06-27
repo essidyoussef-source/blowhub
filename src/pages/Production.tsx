@@ -98,8 +98,8 @@ export default function Production({ embedded }: { embedded?: boolean } = {}) {
         />
       )}
       <div className="flex gap-5 flex-wrap items-start">
-        <Lane title="Tournages" icon={<Clapperboard size={18} />} accent="#fb923c" items={toShoot} kind="shoot" onOpen={setOpenId} />
-        <Lane title="Montages" icon={<Scissors size={18} />} accent="#22d3ee" items={toEdit} kind="edit" onOpen={setOpenId} />
+        <Lane title="Tournages" icon={<Clapperboard size={18} />} accent="#f3b58f" items={toShoot} kind="shoot" onOpen={setOpenId} />
+        <Lane title="Montages" icon={<Scissors size={18} />} accent="#8fd5cb" items={toEdit} kind="edit" onOpen={setOpenId} />
       </div>
       <p className="text-xs text-slate-500 mt-4">
         Astuce : passe un Reel en statut « À tourner » dans son éditeur pour le voir apparaître ici automatiquement.

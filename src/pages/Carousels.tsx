@@ -9,7 +9,7 @@ import CarouselExport from '../components/CarouselExport'
 import SeriesPage from './Series'
 import Segmented from '../components/Segmented'
 import { useStore } from '../store'
-import { PILLARS, pillarOf } from '../constants'
+import { PILLARS, pillarOf, tone } from '../constants'
 import { PillarBadge, StatusBadge } from '../components/Badges'
 import type { Content, Slide } from '../types'
 
@@ -224,7 +224,8 @@ export default function Carousels() {
         </button>
         {PILLARS.slice(0, 8).map((p) => (
           <button key={p.id} onClick={() => setPillar(pillar === p.id ? '' : p.id)}
-            className={`chip transition ${pillar === p.id ? `${p.bg} ${p.text} ${p.border}` : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}>
+            className={`chip border transition ${pillar === p.id ? '' : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}
+            style={pillar === p.id ? tone(p.hex, p.ink) : undefined}>
             <p.Icon size={12} className="shrink-0" /> {p.label}
           </button>
         ))}

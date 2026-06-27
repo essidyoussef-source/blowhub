@@ -9,14 +9,15 @@ import ContentModal from '../components/ContentModal'
 import { useStore } from '../store'
 import { STATUSES, PILLARS, statusOf, pillarOf } from '../constants'
 
-function Stat({ icon, label, value, grad }: { icon: React.ReactNode; label: string; value: number | string; grad: string }) {
+function Stat({ icon, label, value, hex, ink }: { icon: React.ReactNode; label: string; value: number | string; hex: string; ink: string }) {
   return (
-    <div className="rounded-3xl p-4 flex items-center gap-3 shadow-card relative overflow-hidden" style={{ background: grad }}>
-      <div className="absolute -right-6 -top-8 h-24 w-24 rounded-full bg-white/15" />
-      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/25 text-white shrink-0 backdrop-blur-sm">{icon}</div>
+    <div className="rounded-4xl p-4 flex items-center gap-3 shadow-soft border border-white/70 relative overflow-hidden"
+      style={{ background: `linear-gradient(140deg, ${hex}, ${hex}cc)` }}>
+      <div className="absolute -right-7 -top-9 h-24 w-24 rounded-full bg-white/40" />
+      <div className="grid h-12 w-12 place-items-center rounded-2xl bg-white/70 shrink-0" style={{ color: ink }}>{icon}</div>
       <div className="relative">
-        <div className="text-3xl font-display font-extrabold text-white leading-none">{value}</div>
-        <div className="text-xs text-white/90 mt-1 font-medium">{label}</div>
+        <div className="text-3xl font-display font-extrabold leading-none" style={{ color: ink }}>{value}</div>
+        <div className="text-xs mt-1 font-semibold" style={{ color: ink, opacity: 0.85 }}>{label}</div>
       </div>
     </div>
   )
@@ -75,10 +76,10 @@ export default function Dashboard() {
 
       {/* Stats — blocs couleur pleine (façon palette) */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} grad="linear-gradient(135deg,#b9a7f7,#7b6cf5)" />
-        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} grad="linear-gradient(135deg,#9db8f5,#7c9bf2)" />
-        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} grad="linear-gradient(135deg,#f7c39b,#f6a978)" />
-        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} grad="linear-gradient(135deg,#8fe0cf,#5fcdb6)" />
+        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} hex="#cdc0f8" ink="#6e5fd0" />
+        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} hex="#c2d3f8" ink="#5b73d6" />
+        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} hex="#f8d6ba" ink="#cf7f4f" />
+        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} hex="#b3e8d6" ink="#3fa06a" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
@@ -91,7 +92,7 @@ export default function Dashboard() {
               return (
                 <div key={s.id} className="flex items-center gap-3">
                   <div className="w-28 text-xs text-slate-300 flex items-center gap-1.5 shrink-0">
-                    <span className={`h-2 w-2 rounded-full ${s.dot}`} /> {s.label}
+                    <span className="h-2 w-2 rounded-full" style={{ background: s.hex }} /> {s.label}
                   </div>
                   <div className="flex-1 h-2.5 rounded-full bg-white/70 overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${(v / maxStatus) * 100}%`, background: s.hex }} />

@@ -75,8 +75,8 @@ export default function PlatformWorkspace() {
       <div className="flex items-center gap-1.5 mb-5 flex-wrap">
         {TABS.map(({ id: t, label, icon: Icon, count }) => (
           <button key={t} onClick={() => setTab(t)}
-            className={`btn ${tab === t ? 'text-white shadow-soft' : 'text-slate-400 hover:text-slate-100 bg-white border border-slate-900/[0.08]'}`}
-            style={tab === t ? { background: def.hex } : undefined}>
+            className={`btn ${tab === t ? 'text-white shadow-glow' : 'text-slate-400 hover:text-slate-100 bg-white/60 border border-white/70'}`}
+            style={tab === t ? { backgroundImage: `linear-gradient(135deg, ${def.hex}, ${def.ink})` } : undefined}>
             <Icon size={16} /> {label}{count != null && <span className="opacity-70 text-xs">{count}</span>}
           </button>
         ))}
@@ -86,10 +86,10 @@ export default function PlatformWorkspace() {
       {tab === 'vue' && (
         <div className="grid lg:grid-cols-2 gap-5">
           <div className="grid grid-cols-2 gap-3 lg:col-span-2">
-            <Stat label="Contenus" value={mine.length} hex={def.hex} icon={<def.Icon size={18} />} />
-            <Stat label="Programmés" value={byStatus['programme'] ?? 0} hex="#4f46e5" icon={<Send size={18} />} />
-            <Stat label="Publiés" value={byStatus['publie'] ?? 0} hex="#059669" icon={<LayoutDashboard size={18} />} />
-            <Stat label="Inspirations" value={inspoCount} hex="#f37826" icon={<Bookmark size={18} />} />
+            <Stat label="Contenus" value={mine.length} hex={def.hex} ink={def.ink} icon={<def.Icon size={18} />} />
+            <Stat label="Programmés" value={byStatus['programme'] ?? 0} hex="#a6a3f0" ink="#6562cf" icon={<Send size={18} />} />
+            <Stat label="Publiés" value={byStatus['publie'] ?? 0} hex="#9bd9b9" ink="#3fa06a" icon={<LayoutDashboard size={18} />} />
+            <Stat label="Inspirations" value={inspoCount} hex="#f3b58f" ink="#cf7f4f" icon={<Bookmark size={18} />} />
           </div>
 
           <div className="card p-5">
@@ -97,7 +97,7 @@ export default function PlatformWorkspace() {
             <div className="space-y-2.5">
               {STATUSES.map((s) => (
                 <div key={s.id} className="flex items-center gap-3">
-                  <div className="w-28 text-xs text-slate-400 flex items-center gap-1.5 shrink-0"><span className={`h-2 w-2 rounded-full ${s.dot}`} /> {s.label}</div>
+                  <div className="w-28 text-xs text-slate-400 flex items-center gap-1.5 shrink-0"><span className="h-2 w-2 rounded-full" style={{ background: s.hex }} /> {s.label}</div>
                   <div className="flex-1 h-2.5 rounded-full bg-slate-900/[0.05] overflow-hidden">
                     <div className="h-full rounded-full" style={{ width: `${((byStatus[s.id] ?? 0) / maxStatus) * 100}%`, background: s.hex }} />
                   </div>
@@ -164,13 +164,13 @@ export default function PlatformWorkspace() {
   )
 }
 
-function Stat({ label, value, hex, icon }: { label: string; value: number; hex: string; icon: React.ReactNode }) {
+function Stat({ label, value, hex, ink, icon }: { label: string; value: number; hex: string; ink: string; icon: React.ReactNode }) {
   return (
-    <div className="rounded-3xl p-4 flex items-center gap-3 shadow-card" style={{ background: hex }}>
-      <div className="grid h-11 w-11 place-items-center rounded-2xl bg-white/25 text-white shrink-0">{icon}</div>
+    <div className="card p-4 flex items-center gap-3">
+      <div className="grid h-12 w-12 place-items-center rounded-2xl shrink-0" style={{ background: `${hex}33`, color: ink }}>{icon}</div>
       <div>
-        <div className="text-3xl font-display font-extrabold text-white leading-none">{value}</div>
-        <div className="text-xs text-white/90 mt-1 font-medium">{label}</div>
+        <div className="text-3xl font-display font-extrabold text-slate-100 leading-none">{value}</div>
+        <div className="text-xs text-slate-400 mt-1 font-medium">{label}</div>
       </div>
     </div>
   )

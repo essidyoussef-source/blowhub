@@ -37,7 +37,7 @@ function NavItem({ to, label, Icon, end }: { to: string; label: string; Icon: an
           isActive ? 'text-white shadow-glow' : 'text-slate-300 hover:text-blow-700 hover:bg-white/60'
         }`
       }
-      style={({ isActive }: any) => (isActive ? { backgroundImage: 'linear-gradient(135deg,#9d85f4,#7b6cf5 55%,#6a54ee)' } : undefined)}
+      style={({ isActive }: any) => (isActive ? { backgroundImage: 'linear-gradient(135deg,#bcaef7,#9d85f4)' } : undefined)}
     >
       <Icon size={19} />
       {label}
@@ -47,7 +47,8 @@ function NavItem({ to, label, Icon, end }: { to: string; label: string; Icon: an
 
 function Sidebar() {
   return (
-    <aside className="hidden md:flex w-[248px] shrink-0 flex-col bg-white/45 backdrop-blur-2xl border-r border-white/60">
+    <aside className="hidden md:flex w-[248px] shrink-0 flex-col border-r border-white/60"
+      style={{ background: 'radial-gradient(220px 260px at 18% 8%, rgba(179,163,243,0.40), transparent 62%), radial-gradient(220px 280px at 92% 22%, rgba(143,210,221,0.34), transparent 62%), radial-gradient(240px 300px at 25% 88%, rgba(245,193,160,0.30), transparent 62%), radial-gradient(220px 280px at 95% 96%, rgba(240,168,207,0.28), transparent 62%), linear-gradient(180deg,#fcf9ff,#f3edfd)' }}>
       <div className="flex items-center gap-3 px-5 h-[72px]">
         <div className="grid h-10 w-10 place-items-center rounded-2xl shadow-glow" style={{ backgroundImage: 'linear-gradient(135deg,#9d85f4,#6a54ee)' }}>
           <Sparkles size={20} className="text-white" />

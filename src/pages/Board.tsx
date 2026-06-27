@@ -2,7 +2,7 @@ import { useMemo, useState } from 'react'
 import { LayoutGrid, Plus, Sparkles, Loader2, ArrowUpRight, Trash2 } from 'lucide-react'
 import PageHeader from '../components/PageHeader'
 import { useStore } from '../store'
-import { PILLARS, pillarOf } from '../constants'
+import { PILLARS, pillarOf, tone } from '../constants'
 import { generateIdeas, AiError } from '../lib/ai'
 import type { RawIdea } from '../types'
 
@@ -120,7 +120,8 @@ export default function Board({ embedded }: { embedded?: boolean } = {}) {
           if (!n) return null
           return (
             <button key={p.id} onClick={() => setFilter(filter === p.id ? '' : p.id)}
-              className={`chip transition ${filter === p.id ? `${p.bg} ${p.text} ${p.border}` : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}>
+              className={`chip border transition ${filter === p.id ? '' : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}
+              style={filter === p.id ? tone(p.hex, p.ink) : undefined}>
               <p.Icon size={12} className="shrink-0" /> {p.label} <span className="opacity-60">{n}</span>
             </button>
           )

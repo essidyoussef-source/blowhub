@@ -15,7 +15,7 @@ import ContentModal from '../components/ContentModal'
 import Board from './Board'
 import Segmented from '../components/Segmented'
 import { useStore } from '../store'
-import { STATUSES, PILLARS, FORMATS, pillarOf } from '../constants'
+import { STATUSES, PILLARS, FORMATS, pillarOf, tone, softBg, softBorder } from '../constants'
 import type { Content, StatusId } from '../types'
 
 function SortableCard({ content, onOpen }: { content: Content; onOpen: () => void }) {
@@ -42,16 +42,15 @@ function Column({
     <div className="w-[300px] shrink-0 flex flex-col">
       <div className="flex items-center justify-between px-1 mb-2.5">
         <div className="flex items-center gap-2">
-          <span className={`h-2.5 w-2.5 rounded-full ${def.dot}`} />
+          <span className="h-2.5 w-2.5 rounded-full" style={{ background: def.hex }} />
           <span className="font-semibold text-sm text-slate-200">{def.label}</span>
-          <span className="text-xs text-slate-500 font-mono">{items.length}</span>
+          <span className="text-xs text-slate-400 font-mono">{items.length}</span>
         </div>
       </div>
       <div
         ref={setNodeRef}
-        className={`flex-1 min-h-[120px] rounded-2xl border p-2 space-y-2 transition-colors ${
-          isOver ? `${def.bg} ${def.border}` : 'border-slate-900/[0.06] bg-ink-900/40'
-        }`}
+        className={`flex-1 min-h-[120px] rounded-3xl border p-2 space-y-2 transition-colors ${isOver ? '' : 'border-white/60 bg-white/40'}`}
+        style={isOver ? { background: softBg(def.hex), borderColor: softBorder(def.hex) } : undefined}
       >
         <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>
           {items.map((c) => (
@@ -169,7 +168,8 @@ export default function IdeasBoard() {
             <button
               key={p.id}
               onClick={() => setPillar(pillar === p.id ? '' : p.id)}
-              className={`chip transition ${pillar === p.id ? `${p.bg} ${p.text} ${p.border}` : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}
+              className={`chip border transition ${pillar === p.id ? '' : 'border-slate-900/10 text-slate-400 hover:text-blow-600'}`}
+              style={pillar === p.id ? tone(p.hex, p.ink) : undefined}
             >
               <p.Icon size={12} className="shrink-0" /> {p.label}
             </button>
