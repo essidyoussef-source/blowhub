@@ -45,6 +45,8 @@ export interface Content {
   caption?: string
   hashtags?: string
   notes?: string
+  /** Thématiques (ids) attribuées à ce contenu — filtre transversal */
+  themes?: string[]
   /** Date de publication programmée (ISO yyyy-mm-dd) */
   publishDate?: string | null
   /** Date de tournage (ISO yyyy-mm-dd) */
@@ -83,4 +85,23 @@ export interface Caption {
   post: string
   caption: string
   hashtags?: string
+}
+
+/** Thématique personnalisée (transversale aux plateformes) */
+export interface Theme {
+  id: string
+  name: string
+  color: string
+}
+
+/** Lien d'inspiration sauvegardé depuis un réseau */
+export interface Inspiration {
+  id: string
+  url: string
+  platform: Platform
+  title?: string
+  note?: string
+  cover?: string
+  theme?: string | null
+  createdAt: string
 }

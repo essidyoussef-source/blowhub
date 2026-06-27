@@ -11,6 +11,7 @@ import {
 } from '../constants'
 import type { Content, Slide } from '../types'
 import { Field, Select } from './Field'
+import { ThemePicker } from './Themes'
 
 export default function ContentModal({ id, onClose }: { id: string; onClose: () => void }) {
   const content = useStore((s) => s.contents.find((c) => c.id === id))
@@ -145,6 +146,10 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
             <textarea className="input min-h-[72px] resize-y" value={content.description ?? ''}
               placeholder="L'angle, le pitch, ce que ça raconte…"
               onChange={(e) => set({ description: e.target.value })} />
+          </Field>
+
+          <Field label="Thématiques">
+            <ThemePicker value={content.themes ?? []} onChange={(themes) => set({ themes })} />
           </Field>
 
           {/* Slides */}

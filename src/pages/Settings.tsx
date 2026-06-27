@@ -40,7 +40,7 @@ export default function Settings() {
   const flashSaved = () => { setSaved(true); setTimeout(() => setSaved(false), 1200) }
 
   const exportJson = () => {
-    const data = { contents: store.contents, quotes: store.quotes, anecdotes: store.anecdotes, rawIdeas: store.rawIdeas, captions: store.captions }
+    const data = { contents: store.contents, quotes: store.quotes, anecdotes: store.anecdotes, rawIdeas: store.rawIdeas, captions: store.captions, themes: store.themes, inspirations: store.inspirations }
     const blob = new Blob([JSON.stringify(data, null, 2)], { type: 'application/json' })
     const a = document.createElement('a')
     a.href = URL.createObjectURL(blob)
@@ -71,7 +71,7 @@ export default function Settings() {
   const doPush = async () => {
     setBusy(true); setCloudMsg(null)
     try {
-      await pushState({ contents: store.contents, quotes: store.quotes, anecdotes: store.anecdotes, rawIdeas: store.rawIdeas, captions: store.captions })
+      await pushState({ contents: store.contents, quotes: store.quotes, anecdotes: store.anecdotes, rawIdeas: store.rawIdeas, captions: store.captions, themes: store.themes, inspirations: store.inspirations })
       setCloudMsg('Sauvegardé dans le cloud')
     } catch (e: any) { setCloudMsg('Erreur : ' + (e?.message ?? '')) }
     finally { setBusy(false) }

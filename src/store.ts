@@ -2,8 +2,17 @@ import { create } from 'zustand'
 import { persist } from 'zustand/middleware'
 import seed from './data/seed.json'
 import type {
-  Content, Quote, Anecdote, RawIdea, Caption, StatusId, Priority,
+  Content, Quote, Anecdote, RawIdea, Caption, StatusId, Priority, Theme, Inspiration, Platform,
 } from './types'
+
+// Détecte la plateforme depuis l'URL d'une inspiration
+export function detectPlatform(url: string): Platform {
+  const u = (url || '').toLowerCase()
+  if (u.includes('tiktok')) return 'TikTok'
+  if (u.includes('linkedin')) return 'LinkedIn'
+  if (u.includes('youtu')) return 'YouTube'
+  return 'Instagram'
+}
 
 // ── Normalisation du seed (contenu réel de Morgane) ────────────────────────
 let counter = 1
@@ -97,6 +106,16 @@ interface BlowState {
   anecdotes: Anecdote[]
   rawIdeas: RawIdea[]
   captions: Caption[]
+  themes: Theme[]
+  inspirations: Inspiration[]
+
+  addTheme: (name: string, color: string) => string
+  updateTheme: (id: string, patch: Partial<Theme>) => void
+  deleteTheme: (id: string) => void
+
+  addInspiration: (partial: Partial<Inspiration> & { url: string }) => string
+  updateInspiration: (id: string, patch: Partial<Inspiration>) => void
+  deleteInspiration: (id: string) => void
 
   addContent: (partial?: Partial<Content>) => string
   updateContent: (id: string, patch: Partial<Content>) => void
@@ -111,7 +130,18 @@ interface BlowState {
 
   resetDemo: () => void
   /** Remplace tout l'état (import / synchro cloud) */
-  replaceAll: (data: Partial<Pick<BlowState, 'contents' | 'quotes' | 'anecdotes' | 'rawIdeas' | 'captions'>>) => void
+  replaceAll: (data: Partial<Pick<BlowState, 'contents' | 'quotes' | 'anecdotes' | 'rawIdeas' | 'captions' | 'themes' | 'inspirations'>>) => void
+}
+
+// Thématiques de démarrage (modifiables / supprimables)
+function seedThemes(): Theme[] {
+  return [
+    { id: 't_glowup', name: 'Glow-up mental', color: '#7c3aed' },
+    { id: 't_coulisses', name: 'Coulisses business', color: '#d97706' },
+    { id: 't_transfo', name: 'Transformation', color: '#059669' },
+    { id: 't_routines', name: 'Routines', color: '#0284c7' },
+    { id: 't_mythes', name: 'Mythes & vérités', color: '#ec1763' },
+  ]
 }
 
 function freshState() {
@@ -122,6 +152,8 @@ function freshState() {
     anecdotes: normAnecdotes(),
     rawIdeas: normRawIdeas(),
     captions: normCaptions(),
+    themes: seedThemes(),
+    inspirations: [] as Inspiration[],
   }
 }
 
@@ -151,6 +183,7 @@ export const useStore = create<BlowState>()(
           caption: partial.caption ?? '',
           hashtags: partial.hashtags ?? '',
           notes: partial.notes ?? '',
+          themes: partial.themes ?? [],
           publishDate: partial.publishDate ?? null,
           shootDate: partial.shootDate ?? null,
           editDate: partial.editDate ?? null,
@@ -190,6 +223,39 @@ export const useStore = create<BlowState>()(
         return newId
       },
 
+      addTheme: (name, color) => {
+        const id = `t_${Date.now()}`
+        set((s) => ({ themes: [...s.themes, { id, name, color }] }))
+        return id
+      },
+      updateTheme: (id, patch) =>
+        set((s) => ({ themes: s.themes.map((t) => (t.id === id ? { ...t, ...patch } : t)) })),
+      deleteTheme: (id) =>
+        set((s) => ({
+          themes: s.themes.filter((t) => t.id !== id),
+          contents: s.contents.map((c) => (c.themes?.includes(id) ? { ...c, themes: c.themes.filter((x) => x !== id) } : c)),
+        })),
+
+      addInspiration: (partial) => {
+        const id = `i_${Date.now()}`
+        const insp: Inspiration = {
+          id,
+          url: partial.url,
+          platform: partial.platform ?? detectPlatform(partial.url),
+          title: partial.title ?? '',
+          note: partial.note ?? '',
+          cover: partial.cover ?? '',
+          theme: partial.theme ?? null,
+          createdAt: new Date().toISOString(),
+        }
+        set((s) => ({ inspirations: [insp, ...s.inspirations] }))
+        return id
+      },
+      updateInspiration: (id, patch) =>
+        set((s) => ({ inspirations: s.inspirations.map((i) => (i.id === id ? { ...i, ...patch } : i)) })),
+      deleteInspiration: (id) =>
+        set((s) => ({ inspirations: s.inspirations.filter((i) => i.id !== id) })),
+
       resetDemo: () => set(freshState()),
 
       replaceAll: (data) =>
@@ -199,6 +265,8 @@ export const useStore = create<BlowState>()(
           anecdotes: data.anecdotes ?? s.anecdotes,
           rawIdeas: data.rawIdeas ?? s.rawIdeas,
           captions: data.captions ?? s.captions,
+          themes: data.themes ?? s.themes,
+          inspirations: data.inspirations ?? s.inspirations,
         })),
     }),
     { name: 'blowhub-store-v1' },

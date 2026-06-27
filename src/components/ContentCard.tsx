@@ -2,6 +2,7 @@ import { GalleryHorizontalEnd } from 'lucide-react'
 import type { Content } from '../types'
 import { pillarOf } from '../constants'
 import { FormatBadge, PlatformBadge, PriorityBadge, FrameworkBadge } from './Badges'
+import { ThemeTags } from './Themes'
 
 export default function ContentCard({
   content, onClick, compact,
@@ -34,6 +35,7 @@ export default function ContentCard({
           </span>
         )}
         {!compact && <PlatformBadge id={content.platform} sm />}
+        <ThemeTags ids={content.themes} sm />
       </div>
     </button>
   )

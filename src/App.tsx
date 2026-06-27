@@ -1,7 +1,7 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
 import {
   LayoutDashboard, KanbanSquare, CalendarDays, GalleryHorizontalEnd,
-  Clapperboard, Library, Sparkles, Github, Tv, Settings as SettingsIcon, LayoutGrid,
+  Clapperboard, Library, Sparkles, Github, Tv, Settings as SettingsIcon, LayoutGrid, Bookmark,
 } from 'lucide-react'
 import Dashboard from './pages/Dashboard'
 import IdeasBoard from './pages/IdeasBoard'
@@ -12,7 +12,10 @@ import Production from './pages/Production'
 import LibraryPage from './pages/LibraryPage'
 import SeriesPage from './pages/Series'
 import Settings from './pages/Settings'
+import Inspirations from './pages/Inspirations'
+import PlatformWorkspace from './pages/PlatformWorkspace'
 import CommandPalette from './components/CommandPalette'
+import { PLATFORMS } from './constants'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
@@ -22,6 +25,7 @@ const NAV = [
   { to: '/carousels', label: 'Carrousels', icon: GalleryHorizontalEnd },
   { to: '/series', label: 'Séries', icon: Tv },
   { to: '/production', label: 'Production', icon: Clapperboard },
+  { to: '/inspirations', label: 'Inspirations', icon: Bookmark },
   { to: '/library', label: 'Bibliothèque', icon: Library },
   { to: '/settings', label: 'Réglages', icon: SettingsIcon },
 ]
@@ -39,7 +43,7 @@ function Sidebar() {
         </div>
       </div>
 
-      <nav className="flex-1 p-3 space-y-1">
+      <nav className="flex-1 p-3 space-y-1 overflow-y-auto">
         {NAV.map(({ to, label, icon: Icon, end }) => (
           <NavLink
             key={to}
@@ -48,17 +52,33 @@ function Sidebar() {
             className={({ isActive }) =>
               `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
                 isActive
-                  ? 'bg-blow-50 text-blow-700 shadow-[inset_0_0_0_1px_rgba(255,45,119,0.3)]'
+                  ? 'bg-blow-50 text-blow-700 shadow-[inset_0_0_0_1px_rgba(236,23,99,0.25)]'
                   : 'text-slate-400 hover:text-blow-600 hover:bg-slate-900/[0.04]'
               }`
             }
           >
             {({ isActive }) => (
               <>
-                <Icon size={18} className={isActive ? 'text-blow-400' : ''} />
+                <Icon size={18} className={isActive ? 'text-blow-500' : ''} />
                 {label}
               </>
             )}
+          </NavLink>
+        ))}
+
+        {/* Plateformes = espaces de travail */}
+        <div className="px-3 pt-4 pb-1.5 text-[10px] font-bold uppercase tracking-widest text-slate-600">Plateformes</div>
+        {PLATFORMS.map((p) => (
+          <NavLink key={p.id} to={`/platform/${p.id}`}
+            className={({ isActive }) =>
+              `flex items-center gap-3 rounded-xl px-3 py-2.5 text-sm font-semibold transition-all ${
+                isActive ? 'text-slate-100' : 'text-slate-400 hover:text-slate-100 hover:bg-slate-900/[0.04]'
+              }`
+            }
+            style={({ isActive }: any) => (isActive ? { background: `${p.hex}14`, boxShadow: `inset 0 0 0 1px ${p.hex}40` } : undefined)}
+          >
+            <p.Icon size={18} style={{ color: p.hex }} />
+            {p.label}
           </NavLink>
         ))}
       </nav>
@@ -118,6 +138,8 @@ export default function App() {
           <Route path="/series" element={<SeriesPage />} />
           <Route path="/production" element={<Production />} />
           <Route path="/library" element={<LibraryPage />} />
+          <Route path="/inspirations" element={<Inspirations />} />
+          <Route path="/platform/:id" element={<PlatformWorkspace />} />
           <Route path="/settings" element={<Settings />} />
         </Routes>
       </main>
