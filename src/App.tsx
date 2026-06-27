@@ -1,10 +1,11 @@
 import { NavLink, Route, Routes } from 'react-router-dom'
 import {
   LayoutDashboard, KanbanSquare, CalendarDays, GalleryHorizontalEnd,
-  Clapperboard, Library, Sparkles, Github, Tv, Settings as SettingsIcon,
+  Clapperboard, Library, Sparkles, Github, Tv, Settings as SettingsIcon, LayoutGrid,
 } from 'lucide-react'
 import Dashboard from './pages/Dashboard'
 import IdeasBoard from './pages/IdeasBoard'
+import Board from './pages/Board'
 import CalendarPage from './pages/Calendar'
 import Carousels from './pages/Carousels'
 import Production from './pages/Production'
@@ -15,6 +16,7 @@ import CommandPalette from './components/CommandPalette'
 
 const NAV = [
   { to: '/', label: 'Dashboard', icon: LayoutDashboard, end: true },
+  { to: '/board', label: 'Tableau', icon: LayoutGrid },
   { to: '/ideas', label: 'Idées', icon: KanbanSquare },
   { to: '/calendar', label: 'Calendrier', icon: CalendarDays },
   { to: '/carousels', label: 'Carrousels', icon: GalleryHorizontalEnd },
@@ -109,6 +111,7 @@ export default function App() {
       <main className="flex-1 overflow-y-auto pb-20 md:pb-0">
         <Routes>
           <Route path="/" element={<Dashboard />} />
+          <Route path="/board" element={<Board />} />
           <Route path="/ideas" element={<IdeasBoard />} />
           <Route path="/calendar" element={<CalendarPage />} />
           <Route path="/carousels" element={<Carousels />} />
