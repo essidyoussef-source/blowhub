@@ -9,31 +9,24 @@ import ContentModal from '../components/ContentModal'
 import { useStore } from '../store'
 import { STATUSES, PILLARS, statusOf, pillarOf } from '../constants'
 
-// Orb glossy "liquid glass" — bulle dégradée avec reflet, façon iOS 26.
-function Stat({ icon, label, value, from, to }: { icon: React.ReactNode; label: string; value: number | string; from: string; to: string }) {
+// Stat minimaliste : icône discrète, grand chiffre, libellé gris.
+function Stat({ icon, label, value, accent }: { icon: React.ReactNode; label: string; value: number | string; accent: string }) {
   return (
-    <div className="widget flex flex-col items-center text-center gap-3 py-5">
-      <div className="relative grid h-24 w-24 place-items-center rounded-full shrink-0"
-        style={{ backgroundImage: `radial-gradient(120% 120% at 30% 22%, ${from}, ${to})`, boxShadow: `0 16px 30px -10px ${to}aa, inset 0 2px 6px rgba(255,255,255,0.55)` }}>
-        {/* reflet vitré */}
-        <span className="absolute left-3 top-2.5 h-7 w-10 rounded-full bg-white/55 blur-[6px]" />
-        <span className="absolute inset-1.5 rounded-full border border-white/40" />
-        <div className="relative leading-none">
-          <div className="text-2xl font-display font-extrabold text-white drop-shadow-sm">{value}</div>
-          <div className="mt-1 grid place-items-center text-white/90">{icon}</div>
-        </div>
+    <div className="card p-4">
+      <div className="flex items-center justify-between mb-3">
+        <div className="grid h-9 w-9 place-items-center rounded-lg" style={{ background: `${accent}14`, color: accent }}>{icon}</div>
       </div>
-      <div className="text-xs font-bold text-slate-200">{label}</div>
+      <div className="text-[28px] font-display font-bold text-slate-100 leading-none tabular-nums">{value}</div>
+      <div className="text-xs text-slate-400 mt-1.5 font-medium">{label}</div>
     </div>
   )
 }
 
-function Panel({ accent, title, action, children }: { accent: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
+function Panel({ title, action, children }: { accent?: string; title: string; action?: React.ReactNode; children: React.ReactNode }) {
   return (
-    <div className="card p-5 relative overflow-hidden">
-      <div className="absolute top-0 left-0 right-0 h-1.5 rounded-t-4xl" style={{ background: accent }} />
-      <div className="flex items-center justify-between mb-4 mt-1">
-        <h3 className="font-display font-bold text-slate-100">{title}</h3>
+    <div className="card p-5">
+      <div className="flex items-center justify-between mb-4">
+        <h3 className="font-display font-semibold text-slate-100">{title}</h3>
         {action}
       </div>
       {children}
@@ -79,12 +72,12 @@ export default function Dashboard() {
         }
       />
 
-      {/* Stats — orbs glossy "liquid glass" */}
+      {/* Stats — cartes minimalistes */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={16} />} label="Contenus au total" value={stats.total} from="#f3a7d6" to="#b07cf0" />
-        <Stat icon={<GalleryHorizontalEnd size={16} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} from="#9fc0f7" to="#7a6cf0" />
-        <Stat icon={<Lightbulb size={16} />} label="Idées en réserve" value={rawIdeas.length} from="#f9c9a0" to="#f08fb6" />
-        <Stat icon={<TrendingUp size={16} />} label="Déjà publiés" value={published} from="#9fe6c2" to="#5fc6c2" />
+        <Stat icon={<Sparkles size={18} />} label="Contenus au total" value={stats.total} accent="#7b6cf5" />
+        <Stat icon={<GalleryHorizontalEnd size={18} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} accent="#5b73d6" />
+        <Stat icon={<Lightbulb size={18} />} label="Idées en réserve" value={rawIdeas.length} accent="#c08a44" />
+        <Stat icon={<TrendingUp size={18} />} label="Déjà publiés" value={published} accent="#3fa06a" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
@@ -99,7 +92,7 @@ export default function Dashboard() {
                   <div className="w-28 text-xs text-slate-300 flex items-center gap-1.5 shrink-0">
                     <span className="h-2 w-2 rounded-full" style={{ background: s.hex }} /> {s.label}
                   </div>
-                  <div className="flex-1 h-2.5 rounded-full bg-white/70 overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-ink-800 overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${(v / maxStatus) * 100}%`, background: s.hex }} />
                   </div>
                   <div className="w-6 text-right text-xs font-mono text-slate-200">{v}</div>
@@ -118,7 +111,7 @@ export default function Dashboard() {
               return (
                 <div key={p.id} className="flex items-center gap-3">
                   <div className="w-28 text-xs text-slate-300 flex items-center gap-1.5 shrink-0"><p.Icon size={12} className="shrink-0" style={{ color: p.hex }} /> {p.label}</div>
-                  <div className="flex-1 h-2.5 rounded-full bg-white/70 overflow-hidden">
+                  <div className="flex-1 h-2 rounded-full bg-ink-800 overflow-hidden">
                     <div className="h-full rounded-full transition-all" style={{ width: `${(v / maxPillar) * 100}%`, background: p.hex }} />
                   </div>
                   <div className="w-6 text-right text-xs font-mono text-slate-200">{v}</div>

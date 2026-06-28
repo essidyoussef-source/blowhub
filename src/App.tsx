@@ -29,53 +29,50 @@ const NAV = [
   { to: '/inspirations', label: 'Inspirations', icon: Bookmark },
 ]
 
-// Onglet pilule (barre du haut) — l'outil actif passe en dégradé violet.
+// Onglet façon Google — texte simple + soulignement de l'onglet actif.
 function TopTab({ to, label, Icon, end }: { to: string; label: string; Icon: any; end?: boolean }) {
   return (
     <NavLink to={to} end={end}
       className={({ isActive }) =>
-        `flex items-center gap-2 rounded-full px-3.5 py-2 text-sm font-semibold transition-all whitespace-nowrap ${
-          isActive ? 'text-white shadow-glow' : 'text-slate-300 hover:text-blow-700 hover:bg-white/60'
+        `relative inline-flex items-center gap-2 h-full px-1 text-sm font-medium border-b-2 -mb-px transition-colors whitespace-nowrap ${
+          isActive ? 'border-blow-600 text-slate-100' : 'border-transparent text-slate-400 hover:text-slate-200'
         }`
       }
-      style={({ isActive }: any) => (isActive ? { backgroundImage: 'linear-gradient(135deg,#bcaef7,#9d85f4)' } : undefined)}
     >
-      <Icon size={17} />
+      <Icon size={16} />
       <span className="hidden sm:inline">{label}</span>
     </NavLink>
   )
 }
 
-// Barre du haut : logo + onglets outils + réglages.
+// Barre du haut : logo + onglets outils soulignés + réglages.
 function TopBar() {
   return (
-    <header className="sticky top-0 z-30 flex items-center gap-3 px-4 md:px-6 h-[68px] border-b border-white/50 bg-white/30 backdrop-blur-xl">
-      <div className="flex items-center gap-2.5 shrink-0">
-        <div className="grid h-9 w-9 place-items-center rounded-2xl shadow-glow" style={{ backgroundImage: 'linear-gradient(135deg,#9d85f4,#6a54ee)' }}>
-          <Sparkles size={18} className="text-white" />
+    <header className="sticky top-0 z-30 bg-white border-b border-ink-700">
+      <div className="flex items-stretch gap-6 px-4 md:px-6 h-14">
+        <div className="flex items-center gap-2.5 shrink-0">
+          <div className="grid h-8 w-8 place-items-center rounded-lg bg-blow-600">
+            <Sparkles size={17} className="text-white" />
+          </div>
+          <div className="font-display font-bold text-[15px] tracking-tight text-slate-100 hidden lg:block">Blow Hub</div>
         </div>
-        <div className="leading-none hidden lg:block">
-          <div className="font-display font-extrabold text-base tracking-tight text-slate-100">Blow<span className="text-blow-500">Hub</span></div>
-          <div className="text-[9px] uppercase tracking-widest text-slate-400">Content OS</div>
+
+        <nav className="flex items-stretch gap-6 overflow-x-auto no-scrollbar">
+          {NAV.map((n) => <TopTab key={n.to} to={n.to} label={n.label} Icon={n.icon} end={n.end} />)}
+        </nav>
+
+        <div className="ml-auto flex items-center">
+          <NavLink to="/settings"
+            className={({ isActive }) =>
+              `grid h-9 w-9 place-items-center rounded-lg transition-colors ${
+                isActive ? 'text-slate-100 bg-ink-800' : 'text-slate-400 hover:text-slate-100 hover:bg-ink-800'
+              }`
+            }
+            title="Réglages"
+          >
+            <SettingsIcon size={18} />
+          </NavLink>
         </div>
-      </div>
-
-      <nav className="flex items-center gap-1 rounded-full bg-white/45 border border-white/60 p-1 backdrop-blur-md shadow-soft overflow-x-auto no-scrollbar">
-        {NAV.map((n) => <TopTab key={n.to} to={n.to} label={n.label} Icon={n.icon} end={n.end} />)}
-      </nav>
-
-      <div className="ml-auto flex items-center gap-1.5">
-        <NavLink to="/settings"
-          className={({ isActive }) =>
-            `grid h-10 w-10 place-items-center rounded-2xl transition-all ${
-              isActive ? 'text-white shadow-glow' : 'text-slate-400 hover:text-blow-600 hover:bg-white/60'
-            }`
-          }
-          style={({ isActive }: any) => (isActive ? { backgroundImage: 'linear-gradient(135deg,#bcaef7,#9d85f4)' } : undefined)}
-          title="Réglages"
-        >
-          <SettingsIcon size={19} />
-        </NavLink>
       </div>
     </header>
   )
@@ -84,16 +81,15 @@ function TopBar() {
 // Rail latéral ultra-fin : uniquement les logos des réseaux.
 function Rail() {
   return (
-    <aside className="hidden md:flex w-[72px] shrink-0 flex-col items-center gap-2.5 py-5 border-r border-white/50 bg-white/25 backdrop-blur-xl">
-      <div className="text-[9px] font-bold uppercase tracking-widest text-slate-400 mb-1">Réseaux</div>
+    <aside className="hidden md:flex w-14 shrink-0 flex-col items-center gap-1 py-3 border-r border-ink-700 bg-white">
       {PLATFORMS.map((p) => (
         <NavLink key={p.id} to={`/platform/${p.id}`} title={p.label} className="group">
           {({ isActive }) => (
             <span
-              className={`grid h-12 w-12 place-items-center rounded-2xl transition-all ${isActive ? 'shadow-soft scale-105' : 'group-hover:bg-white/60'}`}
-              style={{ background: isActive ? p.hex : `${p.hex}24` }}
+              className={`grid h-10 w-10 place-items-center rounded-lg transition-colors ${isActive ? '' : 'group-hover:bg-ink-800'}`}
+              style={isActive ? { background: `${p.hex}1f` } : undefined}
             >
-              <p.Icon size={22} style={{ color: isActive ? '#fff' : p.hex }} />
+              <p.Icon size={19} style={{ color: isActive ? p.hex : '#9a9aa3' }} />
             </span>
           )}
         </NavLink>

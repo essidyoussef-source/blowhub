@@ -4,28 +4,28 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Surfaces (lavande clair, glassy) ───────────────────────────────
+        // ── Surfaces (gris neutres, minimalistes) ──────────────────────────
         ink: {
-          950: '#fdf3ec', // fond de page (crème rosé-doré très doux)
+          950: '#f7f7f8', // fond de page (gris très clair neutre)
           900: '#ffffff',
           850: '#ffffff',
-          800: '#f5f1fd', // hover / inputs
-          700: '#ebe5f9', // bordure douce
-          600: '#ddd4f2',
-          500: '#c7baea',
+          800: '#f3f3f5', // hover / inputs
+          700: '#e8e8ec', // bordure douce
+          600: '#d6d6dc',
+          500: '#b6b6bf',
         },
-        // ── Texte (échelle sombre→clair, teinté violet) ────────────────────
+        // ── Texte (échelle gris charbon neutre) ────────────────────────────
         slate: {
           50: '#ffffff',
-          100: '#241a45',
-          200: '#322a55',
-          300: '#5a5278',
-          400: '#837ba0',
-          500: '#a49cc2',
-          600: '#c3bcdd',
-          700: '#433b66',
-          800: '#2e2650',
-          900: '#221a42',
+          100: '#1a1b1f', // titres / texte fort
+          200: '#2a2b30',
+          300: '#42434a', // corps de texte
+          400: '#8a8b94', // texte secondaire / muted
+          500: '#a4a5ad',
+          600: '#c6c6cd',
+          700: '#3a3b42',
+          800: '#26272c',
+          900: '#1a1b1f',
         },
         // ── Marque : Violet périwinkle (action principale) ─────────────────
         blow: {
@@ -57,14 +57,14 @@ export default {
         display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        '4xl': '2rem',
+        '4xl': '1rem',
       },
       boxShadow: {
-        glow: '0 12px 30px -10px rgba(123,108,245,0.50)',
-        card: '0 14px 44px -18px rgba(90,66,214,0.26)',
-        soft: '0 6px 20px -8px rgba(90,66,214,0.18)',
-        pin: '0 16px 34px -14px rgba(34,26,66,0.30)',
-        glass: '0 8px 32px -12px rgba(90,66,214,0.22), inset 0 1px 0 rgba(255,255,255,0.6)',
+        glow: '0 1px 2px rgba(26,27,31,0.10)',
+        card: '0 1px 3px rgba(26,27,31,0.06), 0 1px 2px rgba(26,27,31,0.04)',
+        soft: '0 1px 2px rgba(26,27,31,0.05)',
+        pin: '0 4px 12px -4px rgba(26,27,31,0.18)',
+        glass: '0 1px 3px rgba(26,27,31,0.06)',
       },
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(6px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },

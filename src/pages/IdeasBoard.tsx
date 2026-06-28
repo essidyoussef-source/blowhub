@@ -49,7 +49,7 @@ function Column({
       </div>
       <div
         ref={setNodeRef}
-        className={`flex-1 min-h-[120px] rounded-3xl border p-2 space-y-2 transition-colors ${isOver ? '' : 'border-white/60 bg-white/40'}`}
+        className={`flex-1 min-h-[120px] rounded-3xl border p-2 space-y-2 transition-colors ${isOver ? '' : 'border-ink-700 bg-ink-800/60'}`}
         style={isOver ? { background: softBg(def.hex), borderColor: softBorder(def.hex) } : undefined}
       >
         <SortableContext items={items.map((i) => i.id)} strategy={verticalListSortingStrategy}>

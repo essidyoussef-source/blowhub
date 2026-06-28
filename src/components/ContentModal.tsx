@@ -165,7 +165,7 @@ export default function ContentModal({ id, onClose }: { id: string; onClose: () 
               <span className="label !mb-0">Slides ({content.slides.length})</span>
               <div className="flex items-center gap-1.5">
                 <button
-                  className="btn !py-1 !px-2.5 text-xs bg-gradient-to-r from-blow-500/20 to-violet-500/20 text-blow-300 border border-blow-500/30 hover:from-blow-500/30 hover:to-violet-500/30"
+                  className="btn !py-1 !px-2.5 text-xs bg-blow-50 text-blow-700 border border-blow-200 hover:bg-blow-100"
                   onClick={generate}
                   disabled={aiBusy}
                   title="Générer le carrousel avec l'IA"
