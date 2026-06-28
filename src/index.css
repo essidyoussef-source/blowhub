@@ -7,13 +7,14 @@ html, body, #root { height: 100%; }
 
 body {
   @apply bg-ink-950 text-slate-300 font-sans antialiased;
-  /* Aura "liquid glass" iOS 26 — nappes rose / magenta / lavande très diffuses */
+  /* Aura "liquid glass" — même fond rose / violet / blanc que le menu, sur toute la page */
   background-image:
-    radial-gradient(900px 720px at 8% 2%, rgba(244, 158, 205, 0.58), transparent 60%),
-    radial-gradient(820px 680px at 96% 6%, rgba(201, 168, 244, 0.54), transparent 60%),
-    radial-gradient(1020px 780px at 28% 98%, rgba(243, 138, 196, 0.52), transparent 62%),
+    radial-gradient(900px 720px at 6% 2%, rgba(244, 158, 205, 0.55), transparent 60%),
+    radial-gradient(820px 680px at 96% 6%, rgba(201, 168, 244, 0.52), transparent 60%),
+    radial-gradient(1020px 780px at 24% 98%, rgba(243, 138, 196, 0.46), transparent 62%),
     radial-gradient(820px 700px at 100% 100%, rgba(176, 156, 246, 0.48), transparent 60%),
-    radial-gradient(740px 640px at 58% 44%, rgba(250, 196, 224, 0.42), transparent 66%);
+    radial-gradient(720px 620px at 58% 42%, rgba(250, 196, 224, 0.34), transparent 66%),
+    linear-gradient(180deg, #fdeef6, #f6ecfb);
   background-attachment: fixed;
 }
 
