@@ -7,48 +7,56 @@ html, body, #root { height: 100%; }
 
 body {
   @apply bg-ink-950 text-slate-300 font-sans antialiased;
+  /* Canvas pastel doux : nappes lavande / rose / violet très diffuses */
+  background-image:
+    radial-gradient(1100px 820px at 0% 0%, #e7e0fb 0%, transparent 58%),
+    radial-gradient(1000px 760px at 100% 24%, #f6e6f0 0%, transparent 56%),
+    radial-gradient(900px 760px at 86% 100%, #e9e1fb 0%, transparent 58%),
+    linear-gradient(135deg, #efeafb 0%, #f4ecf3 100%);
+  background-attachment: fixed;
 }
 
-/* Scrollbars — neutres et discrètes */
-* { scrollbar-width: thin; scrollbar-color: #d6d6dc transparent; }
+/* Scrollbars — lavande discrète */
+* { scrollbar-width: thin; scrollbar-color: #ddd5f0 transparent; }
 *::-webkit-scrollbar { height: 10px; width: 10px; }
-*::-webkit-scrollbar-thumb { background: #d6d6dc; border-radius: 9999px; border: 2px solid transparent; background-clip: padding-box; }
-*::-webkit-scrollbar-thumb:hover { background: #b6b6bf; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb { background: #ddd5f0; border-radius: 9999px; border: 2px solid transparent; background-clip: padding-box; }
+*::-webkit-scrollbar-thumb:hover { background: #bdb2e0; background-clip: padding-box; }
 
 @layer components {
-  /* Carte plate, minimaliste : blanc, bordure fine, ombre légère */
+  /* Carte flottante : blanc, très arrondie, ombre violette diffuse */
   .card {
-    @apply bg-white border border-ink-700 rounded-2xl shadow-card;
+    @apply bg-white border border-white/70 rounded-4xl shadow-card;
   }
-  /* Pastille discrète */
+  /* Pastille / tag pilule */
   .pill {
     @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold
-           bg-white border border-ink-700 text-slate-300 transition-colors;
+           bg-white border border-ink-700 text-slate-300 shadow-soft transition-colors;
   }
   /* Bloc de stat / widget */
   .widget {
-    @apply rounded-2xl bg-white border border-ink-700 p-4 relative shadow-card;
+    @apply rounded-4xl bg-white border border-white/70 p-4 relative shadow-card;
   }
   .btn {
-    @apply inline-flex items-center gap-2 rounded-lg px-3.5 py-2 text-sm font-semibold transition-colors
-           disabled:opacity-40 disabled:pointer-events-none;
+    @apply inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all
+           active:scale-[0.98] disabled:opacity-40 disabled:pointer-events-none;
   }
   .btn-primary {
-    @apply btn bg-blow-600 text-white hover:bg-blow-700 shadow-soft;
+    @apply btn text-white shadow-glow;
+    background-image: linear-gradient(135deg, #9d85f4, #7b6cf5 55%, #6a54ee);
   }
   .btn-ghost {
-    @apply btn bg-white text-slate-200 hover:bg-ink-800 border border-ink-700;
+    @apply btn bg-white text-slate-200 hover:bg-ink-800 border border-ink-700 shadow-soft;
   }
   .btn-icon {
-    @apply inline-flex items-center justify-center rounded-lg h-9 w-9 text-slate-400
-           hover:text-slate-100 hover:bg-ink-800 transition-colors;
+    @apply inline-flex items-center justify-center rounded-2xl h-9 w-9 text-slate-400
+           hover:text-blow-600 hover:bg-ink-800 transition-colors;
   }
   .input {
-    @apply w-full rounded-lg bg-white border border-ink-700 px-3 py-2 text-sm text-slate-100
-           placeholder:text-slate-400 outline-none focus:border-blow-400 focus:ring-2 focus:ring-blow-500/20 transition;
+    @apply w-full rounded-2xl bg-white border border-ink-700 px-3.5 py-2.5 text-sm text-slate-100
+           placeholder:text-slate-400 outline-none focus:border-blow-300 focus:ring-4 focus:ring-blow-500/15 transition;
   }
   .chip {
-    @apply inline-flex items-center gap-1.5 rounded-md border px-2 py-0.5 text-xs font-semibold whitespace-nowrap;
+    @apply inline-flex items-center gap-1.5 rounded-full border px-2.5 py-0.5 text-xs font-semibold whitespace-nowrap;
   }
   .label {
     @apply text-[11px] font-semibold uppercase tracking-wide text-slate-400 mb-1.5 block;

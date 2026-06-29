@@ -48,10 +48,10 @@ function TopTab({ to, label, Icon, end }: { to: string; label: string; Icon: any
 // Barre du haut : logo + onglets outils soulignés + réglages.
 function TopBar() {
   return (
-    <header className="sticky top-0 z-30 bg-white border-b border-ink-700">
+    <header className="sticky top-0 z-30 bg-white/85 backdrop-blur-xl border-b border-white/70 shadow-soft">
       <div className="flex items-stretch gap-6 px-4 md:px-6 h-14">
         <div className="flex items-center gap-2.5 shrink-0">
-          <div className="grid h-8 w-8 place-items-center rounded-lg bg-blow-600">
+          <div className="grid h-8 w-8 place-items-center rounded-xl shadow-glow" style={{ backgroundImage: 'linear-gradient(135deg,#9d85f4,#6a54ee)' }}>
             <Sparkles size={17} className="text-white" />
           </div>
           <div className="font-display font-bold text-[15px] tracking-tight text-slate-100 hidden lg:block">Blow Hub</div>
@@ -81,15 +81,15 @@ function TopBar() {
 // Rail latéral ultra-fin : uniquement les logos des réseaux.
 function Rail() {
   return (
-    <aside className="hidden md:flex w-14 shrink-0 flex-col items-center gap-1 py-3 border-r border-ink-700 bg-white">
+    <aside className="hidden md:flex w-16 shrink-0 flex-col items-center gap-1.5 py-4 border-r border-white/70 bg-white/70 backdrop-blur-xl">
       {PLATFORMS.map((p) => (
         <NavLink key={p.id} to={`/platform/${p.id}`} title={p.label} className="group">
           {({ isActive }) => (
             <span
-              className={`grid h-10 w-10 place-items-center rounded-lg transition-colors ${isActive ? '' : 'group-hover:bg-ink-800'}`}
-              style={isActive ? { background: `${p.hex}1f` } : undefined}
+              className={`grid h-11 w-11 place-items-center rounded-2xl transition-all ${isActive ? 'shadow-soft' : 'group-hover:bg-ink-800'}`}
+              style={isActive ? { background: `${p.hex}24` } : undefined}
             >
-              <p.Icon size={19} style={{ color: isActive ? p.hex : '#9a9aa3' }} />
+              <p.Icon size={20} style={{ color: isActive ? p.hex : '#a39ab8' }} />
             </span>
           )}
         </NavLink>

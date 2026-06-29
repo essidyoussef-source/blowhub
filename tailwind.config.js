@@ -4,15 +4,15 @@ export default {
   theme: {
     extend: {
       colors: {
-        // ── Surfaces (gris neutres, minimalistes) ──────────────────────────
+        // ── Surfaces (lavande très clair, cartes flottantes) ───────────────
         ink: {
-          950: '#f7f7f8', // fond de page (gris très clair neutre)
+          950: '#efeafb', // fond de page (base lavande, dégradé par-dessus)
           900: '#ffffff',
           850: '#ffffff',
-          800: '#f3f3f5', // hover / inputs
-          700: '#e8e8ec', // bordure douce
-          600: '#d6d6dc',
-          500: '#b6b6bf',
+          800: '#f4f1fb', // hover / inputs
+          700: '#ece7f8', // bordure douce
+          600: '#ddd5f0',
+          500: '#bdb2e0',
         },
         // ── Texte (échelle gris charbon neutre) ────────────────────────────
         slate: {
@@ -57,14 +57,14 @@ export default {
         display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        '4xl': '1rem',
+        '4xl': '1.75rem',
       },
       boxShadow: {
-        glow: '0 1px 2px rgba(26,27,31,0.10)',
-        card: '0 1px 3px rgba(26,27,31,0.06), 0 1px 2px rgba(26,27,31,0.04)',
-        soft: '0 1px 2px rgba(26,27,31,0.05)',
-        pin: '0 4px 12px -4px rgba(26,27,31,0.18)',
-        glass: '0 1px 3px rgba(26,27,31,0.06)',
+        glow: '0 10px 26px -10px rgba(123,108,245,0.45)',
+        card: '0 14px 44px -20px rgba(91,66,180,0.28), 0 2px 8px -4px rgba(91,66,180,0.10)',
+        soft: '0 8px 24px -14px rgba(91,66,180,0.22)',
+        pin: '0 16px 34px -14px rgba(60,40,120,0.26)',
+        glass: '0 14px 44px -20px rgba(91,66,180,0.26)',
       },
       keyframes: {
         'fade-in': { '0%': { opacity: '0', transform: 'translateY(6px)' }, '100%': { opacity: '1', transform: 'translateY(0)' } },

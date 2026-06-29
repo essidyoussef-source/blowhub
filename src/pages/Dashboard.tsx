@@ -9,15 +9,16 @@ import ContentModal from '../components/ContentModal'
 import { useStore } from '../store'
 import { STATUSES, PILLARS, statusOf, pillarOf } from '../constants'
 
-// Stat minimaliste : icône discrète, grand chiffre, libellé gris.
-function Stat({ icon, label, value, accent }: { icon: React.ReactNode; label: string; value: number | string; accent: string }) {
+// Stat : icône en pastille dégradée + grand chiffre, dans une carte flottante.
+function Stat({ icon, label, value, from, to }: { icon: React.ReactNode; label: string; value: number | string; from: string; to: string }) {
   return (
-    <div className="card p-4">
-      <div className="flex items-center justify-between mb-3">
-        <div className="grid h-9 w-9 place-items-center rounded-lg" style={{ background: `${accent}14`, color: accent }}>{icon}</div>
+    <div className="card p-4 flex items-center gap-3.5">
+      <div className="grid h-12 w-12 place-items-center rounded-2xl text-white shrink-0 shadow-soft"
+        style={{ backgroundImage: `linear-gradient(135deg, ${from}, ${to})` }}>{icon}</div>
+      <div className="min-w-0">
+        <div className="text-2xl font-display font-bold text-slate-100 leading-none tabular-nums">{value}</div>
+        <div className="text-xs text-slate-400 mt-1 font-medium truncate">{label}</div>
       </div>
-      <div className="text-[28px] font-display font-bold text-slate-100 leading-none tabular-nums">{value}</div>
-      <div className="text-xs text-slate-400 mt-1.5 font-medium">{label}</div>
     </div>
   )
 }
@@ -74,10 +75,10 @@ export default function Dashboard() {
 
       {/* Stats — cartes minimalistes */}
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 mb-6">
-        <Stat icon={<Sparkles size={18} />} label="Contenus au total" value={stats.total} accent="#7b6cf5" />
-        <Stat icon={<GalleryHorizontalEnd size={18} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} accent="#5b73d6" />
-        <Stat icon={<Lightbulb size={18} />} label="Idées en réserve" value={rawIdeas.length} accent="#c08a44" />
-        <Stat icon={<TrendingUp size={18} />} label="Déjà publiés" value={published} accent="#3fa06a" />
+        <Stat icon={<Sparkles size={20} />} label="Contenus au total" value={stats.total} from="#9d85f4" to="#6a54ee" />
+        <Stat icon={<GalleryHorizontalEnd size={20} />} label={`Carrousels · ${stats.slides} slides`} value={stats.carousels} from="#7c9bf2" to="#5b73d6" />
+        <Stat icon={<Lightbulb size={20} />} label="Idées en réserve" value={rawIdeas.length} from="#f6b87a" to="#ef9350" />
+        <Stat icon={<TrendingUp size={20} />} label="Déjà publiés" value={published} from="#5fcdb6" to="#3fa07f" />
       </div>
 
       <div className="grid lg:grid-cols-2 gap-5 mb-6">
