@@ -7,12 +7,15 @@ html, body, #root { height: 100%; }
 
 body {
   @apply bg-ink-950 text-slate-300 font-sans antialiased;
-  /* Canvas pastel doux : nappes lavande / rose / violet très diffuses */
+  /* Mesh pastel multicolore : bleu → péri → violet → rose → pêche (façon réf) */
   background-image:
-    radial-gradient(1100px 820px at 0% 0%, #e7e0fb 0%, transparent 58%),
-    radial-gradient(1000px 760px at 100% 24%, #f6e6f0 0%, transparent 56%),
-    radial-gradient(900px 760px at 86% 100%, #e9e1fb 0%, transparent 58%),
-    linear-gradient(135deg, #efeafb 0%, #f4ecf3 100%);
+    radial-gradient(720px 600px at 2% 4%, #d7e2fb 0%, transparent 52%),
+    radial-gradient(760px 620px at 32% 0%, #e4dbfb 0%, transparent 50%),
+    radial-gradient(820px 680px at 72% 10%, #efd9f1 0%, transparent 52%),
+    radial-gradient(820px 700px at 100% 34%, #f8dce6 0%, transparent 52%),
+    radial-gradient(760px 680px at 92% 100%, #f8e4d6 0%, transparent 54%),
+    radial-gradient(720px 660px at 8% 100%, #e3daf9 0%, transparent 54%),
+    linear-gradient(135deg, #e8ecfb 0%, #f2e7f1 55%, #f6e9e6 100%);
   background-attachment: fixed;
 }
 
@@ -23,18 +26,20 @@ body {
 *::-webkit-scrollbar-thumb:hover { background: #bdb2e0; background-clip: padding-box; }
 
 @layer components {
-  /* Carte flottante : blanc, très arrondie, ombre violette diffuse */
+  /* Carte liquid-glass : verre dépoli translucide, reflet sur le bord haut */
   .card {
-    @apply bg-white border border-white/70 rounded-4xl shadow-card;
+    @apply bg-white/55 backdrop-blur-2xl border border-white/60 rounded-4xl;
+    box-shadow: 0 18px 50px -22px rgba(91, 66, 180, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.75);
   }
   /* Pastille / tag pilule */
   .pill {
     @apply inline-flex items-center gap-1.5 rounded-full px-3 py-1 text-xs font-semibold
-           bg-white border border-ink-700 text-slate-300 shadow-soft transition-colors;
+           bg-white/60 backdrop-blur-md border border-white/70 text-slate-300 shadow-soft transition-colors;
   }
-  /* Bloc de stat / widget */
+  /* Bloc de stat / widget — verre dépoli */
   .widget {
-    @apply rounded-4xl bg-white border border-white/70 p-4 relative shadow-card;
+    @apply rounded-4xl bg-white/55 backdrop-blur-2xl border border-white/60 p-4 relative;
+    box-shadow: 0 16px 44px -22px rgba(91, 66, 180, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.7);
   }
   .btn {
     @apply inline-flex items-center gap-2 rounded-full px-4 py-2.5 text-sm font-semibold transition-all
@@ -45,14 +50,14 @@ body {
     background-image: linear-gradient(135deg, #9d85f4, #7b6cf5 55%, #6a54ee);
   }
   .btn-ghost {
-    @apply btn bg-white text-slate-200 hover:bg-ink-800 border border-ink-700 shadow-soft;
+    @apply btn bg-white/65 backdrop-blur-md text-slate-200 hover:bg-white/90 border border-white/70 shadow-soft;
   }
   .btn-icon {
     @apply inline-flex items-center justify-center rounded-2xl h-9 w-9 text-slate-400
-           hover:text-blow-600 hover:bg-ink-800 transition-colors;
+           hover:text-blow-600 hover:bg-white/70 transition-colors;
   }
   .input {
-    @apply w-full rounded-2xl bg-white border border-ink-700 px-3.5 py-2.5 text-sm text-slate-100
+    @apply w-full rounded-2xl bg-white/70 backdrop-blur-md border border-white/70 px-3.5 py-2.5 text-sm text-slate-100
            placeholder:text-slate-400 outline-none focus:border-blow-300 focus:ring-4 focus:ring-blow-500/15 transition;
   }
   .chip {
