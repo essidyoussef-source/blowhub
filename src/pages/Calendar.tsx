@@ -42,7 +42,7 @@ function EventCard({ content, kind, mode, onOpen }: { content: Content; kind: Ki
       {...(draggable ? listeners : {})}
       onClick={onOpen}
       style={{ background: `${color}1a`, borderColor: `${color}55`, opacity: isDragging ? 0.3 : 1 }}
-      className={`w-full text-left rounded-xl border px-2.5 py-2 transition hover:shadow-soft touch-none ${draggable ? 'cursor-grab active:cursor-grabbing' : ''}`}
+      className={`w-full text-left rounded-2xl border px-2.5 py-2 transition hover:shadow-soft touch-none ${draggable ? 'cursor-grab active:cursor-grabbing' : ''}`}
       title={content.title}
     >
       <div className="flex items-center gap-1.5 mb-0.5">

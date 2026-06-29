@@ -13,7 +13,7 @@ function ProdCard({ content, kind, onOpen }: { content: Content; kind: 'shoot' |
   const dateKey = kind === 'shoot' ? 'shootDate' : 'editDate'
   const date = kind === 'shoot' ? content.shootDate : content.editDate
   return (
-    <div className="rounded-xl bg-ink-850 border border-slate-900/[0.06] p-3 hover:border-slate-900/15 transition relative overflow-hidden">
+    <div className="rounded-2xl bg-ink-850 border border-slate-900/[0.06] p-3 hover:border-slate-900/15 transition relative overflow-hidden">
       <span className="absolute left-0 top-0 h-full w-1" style={{ background: p.hex }} />
       <button onClick={onOpen} className="text-left w-full pl-1.5">
         <div className="flex items-center gap-1.5 mb-1.5">

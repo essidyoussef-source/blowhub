@@ -57,7 +57,7 @@ export default {
         display: ['"Plus Jakarta Sans"', 'system-ui', 'sans-serif'],
       },
       borderRadius: {
-        '4xl': '1.75rem',
+        '4xl': '2.25rem',
       },
       boxShadow: {
         glow: '0 10px 26px -10px rgba(123,108,245,0.45)',

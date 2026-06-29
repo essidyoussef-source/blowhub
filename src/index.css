@@ -7,15 +7,13 @@ html, body, #root { height: 100%; }
 
 body {
   @apply bg-ink-950 text-slate-300 font-sans antialiased;
-  /* Mesh pastel multicolore : bleu → péri → violet → rose → pêche (façon réf) */
+  /* Dégradé pastel doux et onirique : lavande → péri → rose (façon réf 2) */
   background-image:
-    radial-gradient(720px 600px at 2% 4%, #d7e2fb 0%, transparent 52%),
-    radial-gradient(760px 620px at 32% 0%, #e4dbfb 0%, transparent 50%),
-    radial-gradient(820px 680px at 72% 10%, #efd9f1 0%, transparent 52%),
-    radial-gradient(820px 700px at 100% 34%, #f8dce6 0%, transparent 52%),
-    radial-gradient(760px 680px at 92% 100%, #f8e4d6 0%, transparent 54%),
-    radial-gradient(720px 660px at 8% 100%, #e3daf9 0%, transparent 54%),
-    linear-gradient(135deg, #e8ecfb 0%, #f2e7f1 55%, #f6e9e6 100%);
+    radial-gradient(1200px 920px at 12% 6%, #efe9fc 0%, transparent 60%),
+    radial-gradient(1100px 920px at 100% 22%, #f3e2ee 0%, transparent 58%),
+    radial-gradient(1100px 960px at 96% 100%, #e8ddf8 0%, transparent 58%),
+    radial-gradient(1000px 900px at 0% 100%, #e2e6fc 0%, transparent 58%),
+    linear-gradient(140deg, #ebe8fc 0%, #f1e8f3 55%, #f4e9ef 100%);
   background-attachment: fixed;
 }
 
@@ -26,10 +24,10 @@ body {
 *::-webkit-scrollbar-thumb:hover { background: #bdb2e0; background-clip: padding-box; }
 
 @layer components {
-  /* Carte liquid-glass : verre dépoli translucide, reflet sur le bord haut */
+  /* Carte liquid-glass : verre dépoli clair, très arrondi, reflet sur le bord haut */
   .card {
-    @apply bg-white/55 backdrop-blur-2xl border border-white/60 rounded-4xl;
-    box-shadow: 0 18px 50px -22px rgba(91, 66, 180, 0.32), inset 0 1px 0 rgba(255, 255, 255, 0.75);
+    @apply bg-white/[0.68] backdrop-blur-2xl border border-white/70 rounded-4xl;
+    box-shadow: 0 22px 60px -24px rgba(91, 66, 180, 0.30), inset 0 1px 0 rgba(255, 255, 255, 0.85);
   }
   /* Pastille / tag pilule */
   .pill {

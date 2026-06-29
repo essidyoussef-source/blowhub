@@ -21,7 +21,7 @@ export default function ContentCard({
   return (
     <div
       onClick={onClick}
-      className={`group w-full text-left rounded-xl bg-ink-850 border border-slate-900/[0.06] p-3 hover:border-slate-900/15 hover:bg-ink-800 transition-all relative overflow-hidden cursor-pointer ${posted ? 'opacity-75' : ''}`}
+      className={`group w-full text-left rounded-2xl bg-ink-850 border border-slate-900/[0.06] p-3 hover:border-slate-900/15 hover:bg-ink-800 transition-all relative overflow-hidden cursor-pointer ${posted ? 'opacity-75' : ''}`}
     >
       <span className="absolute left-0 top-0 h-full w-1" style={{ background: posted ? '#3fa06a' : p.hex }} />
 
